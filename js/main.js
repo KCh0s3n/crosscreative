@@ -77,6 +77,9 @@
       if (window.innerWidth > 980 && siteHeader.classList.contains("is-menu-open")) {
         setMenu(false);
       }
+      if (window.ScrollTrigger) {
+        window.ScrollTrigger.refresh();
+      }
     });
   }
 
@@ -1103,13 +1106,6 @@
     const total = steps.length;
     const target = Math.max(0, Math.min(total - 1, index));
 
-    if (window.innerWidth <= 980) {
-      steps[target]?.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
-      activeProcessIndex = -1;
-      updateProcessStep(target);
-      return;
-    }
-
     if (processST) {
       const targetProgress = total > 1 ? target / (total - 1) : 0;
       const scrollTarget = processST.start + (processST.end - processST.start) * targetProgress;
@@ -1195,10 +1191,16 @@
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
 
   if (!prefersReduced && window.Lenis) {
+    const isTouch =
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0;
+
     lenis = new Lenis({
-      duration: 1.1,
+      duration: isTouch ? 0.85 : 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      syncTouch: true,
+      touchMultiplier: 1.35,
     });
 
     lenis.on("scroll", () => {
@@ -1243,6 +1245,7 @@
         start: "top top",
         end: "bottom bottom",
         scrub: 0.5,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
           const index = Math.min(total - 1, Math.floor(progress * total));
@@ -1273,6 +1276,9 @@
 
       ScrollTrigger.addEventListener("refresh", () => lenis.resize());
       ScrollTrigger.refresh();
+      window.addEventListener("orientationchange", () => {
+        window.setTimeout(() => ScrollTrigger.refresh(), 250);
+      });
     }
   } else {
     reveals.forEach((el) => {
