@@ -1192,14 +1192,17 @@
 
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
+  const isTouch =
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+    navigator.maxTouchPoints > 0;
+  const useGsapPin = !isTouch && window.innerWidth > 980;
 
-  /* Smooth scroll everywhere; extra scroll distance only in this section */
-  if (!prefersReduced && window.Lenis) {
+  /* Lenis: smooth wheel on desktop; native momentum on touch (no proxy fight) */
+  if (!prefersReduced && window.Lenis && !isTouch) {
     lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: false,
     });
 
     lenis.on("scroll", () => {
@@ -1243,10 +1246,10 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        pin: pinPanel,
-        pinSpacing: true,
-        anticipatePin: 1,
-        scrub: 0.5,
+        pin: useGsapPin ? pinPanel : false,
+        pinSpacing: useGsapPin,
+        anticipatePin: useGsapPin ? 1 : 0,
+        scrub: true,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
