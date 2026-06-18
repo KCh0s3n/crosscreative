@@ -1193,16 +1193,13 @@
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
 
-  /* Smooth scroll — desktop only; touch uses native scroll for reliable pinning */
-  const isTouch =
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-    navigator.maxTouchPoints > 0;
-
-  if (!prefersReduced && window.Lenis && !isTouch) {
+  /* Smooth scroll everywhere; extra scroll distance only in this section */
+  if (!prefersReduced && window.Lenis) {
     lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      syncTouch: false,
     });
 
     lenis.on("scroll", () => {
@@ -1224,10 +1221,6 @@
 
   if (hasMotion) {
     gsap.registerPlugin(ScrollTrigger);
-
-    if (isTouch) {
-      ScrollTrigger.normalizeScroll(true);
-    }
 
     reveals.forEach((el) => {
       gsap.to(el, {
@@ -1252,10 +1245,8 @@
         end: "bottom bottom",
         pin: pinPanel,
         pinSpacing: true,
-        pinType: isTouch ? "fixed" : "transform",
         anticipatePin: 1,
-        fastScrollEnd: isTouch,
-        scrub: isTouch ? 1 : 0.5,
+        scrub: 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -1288,11 +1279,12 @@
       });
 
       ScrollTrigger.addEventListener("refresh", () => lenis.resize());
-      ScrollTrigger.refresh();
-      window.addEventListener("orientationchange", () => {
-        window.setTimeout(() => ScrollTrigger.refresh(), 250);
-      });
     }
+
+    ScrollTrigger.refresh();
+    window.addEventListener("orientationchange", () => {
+      window.setTimeout(() => ScrollTrigger.refresh(), 250);
+    });
   } else {
     reveals.forEach((el) => {
       el.style.opacity = "1";

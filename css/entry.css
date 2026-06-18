@@ -46,12 +46,6 @@ body.entry-active {
   display: none;
 }
 
-.entry-screen.entry--lite .entry-hud-ring,
-.entry-screen.entry--lite .entry-hud-ring--mid,
-.entry-screen.entry--lite .entry-hud-ring--inner {
-  animation: none !important;
-}
-
 .entry-screen.entry--lite .entry-c-outline {
   animation: none;
   opacity: 0.5;
@@ -234,16 +228,22 @@ body.entry-active {
   stroke-width: 1;
   stroke-dasharray: 2 10;
   opacity: 0.48;
+  transform-origin: 500px 500px;
+  transform-box: view-box;
+  animation: entry-hud-rotate 9s linear infinite;
 }
 
 .entry-hud-ring--mid {
   stroke-dasharray: 18 18;
   opacity: 0.35;
+  animation-duration: 12s;
+  animation-direction: reverse;
 }
 
 .entry-hud-ring--inner {
   stroke-dasharray: 1 7;
   opacity: 0.42;
+  animation-duration: 7s;
 }
 
 .entry-hud-arc {
