@@ -54,30 +54,31 @@
     });
   };
 
-  attachHudSpin();
-
   const entryCore = entry.querySelector(".entry-core");
   const promptCycle = document.getElementById("entryPromptCycle");
-  const isDesktopEntry = !isPhoneEntry;
+  const isDesktopEntry = window.matchMedia("(pointer: fine)").matches;
 
   if (isDesktopEntry && promptCycle) {
-    const messages = [
-      "Press C key",
-      "Enter database",
-      "Press on the missing C to enter database",
-    ];
-    let cycleIndex = 0;
+    const cycleMsgs = promptCycle.querySelectorAll(".entry-prompt-cycle-msg");
+    let activeIndex = 0;
 
     const cyclePrompt = () => {
-      promptCycle.classList.add("is-fading");
+      if (cycleMsgs.length < 2) return;
+      const current = cycleMsgs[activeIndex];
+      const nextIndex = (activeIndex + 1) % cycleMsgs.length;
+      const next = cycleMsgs[nextIndex];
+
+      current.classList.remove("is-active");
+      current.classList.add("is-fading-out");
+
       window.setTimeout(() => {
-        cycleIndex = (cycleIndex + 1) % messages.length;
-        promptCycle.textContent = messages[cycleIndex];
-        promptCycle.classList.remove("is-fading");
-      }, 280);
+        current.classList.remove("is-fading-out");
+        next.classList.add("is-active");
+        activeIndex = nextIndex;
+      }, 400);
     };
 
-    window.setInterval(cyclePrompt, 1000);
+    window.setInterval(cyclePrompt, 2500);
   }
 
   const sparksEl = entry.querySelector(".entry-sparks");
@@ -303,6 +304,7 @@
   };
 
   const runSurge = () => {
+    attachHudSpin();
     entry.classList.add("is-surging");
     setHudSpinSpeed(true);
     playSurgeSequence();

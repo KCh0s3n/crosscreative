@@ -474,26 +474,41 @@
     }
   };
 
-  player.addEventListener("pointerenter", expand);
-  player.addEventListener("pointerleave", leaveCollapse);
-  player.addEventListener("focusin", expand);
-  player.addEventListener("focusout", leaveCollapse);
+  const prefersHoverExpand = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (prefersHoverExpand) {
+    player.addEventListener("pointerenter", expand);
+    player.addEventListener("pointerleave", leaveCollapse);
+    player.addEventListener("focusin", expand);
+    player.addEventListener("focusout", leaveCollapse);
+  } else {
+    player.classList.add("ambient-player--touch");
+  }
 
   toggleBtn.addEventListener("click", () => {
     muted = !muted;
     localStorage.setItem(STORAGE_MUTED, String(muted));
-    if (muted) {
-      collapseNow();
+    if (prefersHoverExpand) {
+      if (muted) {
+        collapseNow();
+      } else {
+        ensureRunning();
+        expand();
+      }
     } else {
-      ensureRunning();
-      expand();
+      collapseNow();
+      if (!muted) {
+        ensureRunning();
+      }
     }
     applyVolume();
     syncUi();
   });
 
   volumeSlider.addEventListener("input", () => {
-    expand();
+    if (prefersHoverExpand) {
+      expand();
+    }
     volume = clamp(parseInt(volumeSlider.value, 10) / 100, 0, 1);
     localStorage.setItem(STORAGE_VOL, String(volume));
     if (volume > 0 && muted) {
@@ -505,8 +520,12 @@
     syncUi();
   });
 
-  volumeSlider.addEventListener("pointerup", () => scheduleCollapse(1500));
-  volumeSlider.addEventListener("change", () => scheduleCollapse(1500));
+  volumeSlider.addEventListener("pointerup", () => {
+    if (prefersHoverExpand) scheduleCollapse(1500);
+  });
+  volumeSlider.addEventListener("change", () => {
+    if (prefersHoverExpand) scheduleCollapse(1500);
+  });
 
   // Reveal the player and kick off audio once the visitor enters the site
   const onEntered = () => {
