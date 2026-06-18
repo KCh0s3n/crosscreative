@@ -15,6 +15,7 @@
         !window.matchMedia("(pointer: fine)").matches &&
         window.matchMedia("(hover: none) and (pointer: coarse)").matches;
       if (isPhoneEntry) document.documentElement.classList.add("is-phone-entry");
+      document.documentElement.dataset.entryDesktop = isPhoneEntry ? "0" : "1";
 
       /* Desktop only — wait for Archivo Black to avoid C shape flash */
       if (!isPhoneEntry) {
@@ -263,7 +264,10 @@
     </div>
 
     <p class="entry-prompt" id="entry-prompt">
-      <span class="entry-prompt-label entry-prompt-label--desktop" id="entryPromptCycle" aria-live="polite">Press C key to enter database</span>
+      <span class="entry-prompt-label entry-prompt-label--desktop" id="entryPromptCycle" aria-live="polite">
+        <span class="entry-prompt-line is-on">Press C key to enter database</span>
+        <span class="entry-prompt-line">Press the missing C to enter database</span>
+      </span>
       <span class="entry-prompt-label entry-prompt-label--mobile">Press the missing C to enter database</span>
       <span class="entry-prompt-key entry-prompt-key--desktop"><kbd>C</kbd></span>
     </p>
@@ -720,7 +724,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="js/entry.js"></script>
+  <script src="js/entry.js?v=3"></script>
   <script src="js/main.js"></script>
   <script src="js/ambient.js"></script>
   <script src="js/voice-config.js"></script>

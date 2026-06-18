@@ -56,22 +56,17 @@
 
   const entryCore = entry.querySelector(".entry-core");
   const promptCycle = document.getElementById("entryPromptCycle");
+  const promptLines = promptCycle ? promptCycle.querySelectorAll(".entry-prompt-line") : [];
+  const isDesktopEntry = document.documentElement.dataset.entryDesktop === "1";
 
-  if (!isPhoneEntry && promptCycle) {
-    const messages = [
-      "Press C key to enter database",
-      "Press the missing C to enter database",
-    ];
-    let msgIndex = 0;
+  if (isDesktopEntry && promptLines.length >= 2) {
+    let onIndex = 0;
 
     window.setInterval(() => {
-      promptCycle.classList.add("is-swapping");
-      window.setTimeout(() => {
-        msgIndex = (msgIndex + 1) % messages.length;
-        promptCycle.textContent = messages[msgIndex];
-        promptCycle.classList.remove("is-swapping");
-      }, 480);
-    }, 2800);
+      promptLines[onIndex].classList.remove("is-on");
+      onIndex = (onIndex + 1) % promptLines.length;
+      promptLines[onIndex].classList.add("is-on");
+    }, 3000);
   }
 
   const sparksEl = entry.querySelector(".entry-sparks");
