@@ -294,6 +294,19 @@ body.entry-active {
   animation: entry-outline-pulse 2.6s ease-in-out infinite;
 }
 
+/* Phone: keep the missing C artifact clearly visible before tap */
+html.is-phone-entry .entry-c-outline {
+  opacity: 0.82;
+  stroke: color-mix(in srgb, var(--accent) 48%, var(--muted));
+  stroke-width: 3px;
+  animation: entry-outline-pulse-mobile 2.8s ease-in-out infinite;
+}
+
+html.is-phone-entry .entry-socket-bg--well {
+  opacity: 0.58;
+  stroke: color-mix(in srgb, var(--accent) 22%, var(--border));
+}
+
 .entry-c-insert {
   opacity: 0;
   transform-origin: 160px 160px;
@@ -788,6 +801,16 @@ html.is-phone-entry .entry-prompt-label--touch {
   }
   50% {
     opacity: 0.56;
+  }
+}
+
+@keyframes entry-outline-pulse-mobile {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+  50% {
+    opacity: 0.92;
   }
 }
 

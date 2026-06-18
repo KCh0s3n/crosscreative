@@ -16,15 +16,18 @@
         window.matchMedia("(hover: none) and (pointer: coarse)").matches;
       if (isPhoneEntry) document.documentElement.classList.add("is-phone-entry");
 
-      document.documentElement.classList.add("entry-fonts-loading");
-      var revealEntryFonts = function () {
-        document.documentElement.classList.remove("entry-fonts-loading");
-      };
-      window.setTimeout(revealEntryFonts, 2000);
-      if (document.fonts && document.fonts.load) {
-        document.fonts.load('400 1em "Archivo Black"').then(revealEntryFonts).catch(revealEntryFonts);
-      } else {
-        revealEntryFonts();
+      /* Desktop only — wait for Archivo Black to avoid C shape flash */
+      if (!isPhoneEntry) {
+        document.documentElement.classList.add("entry-fonts-loading");
+        var revealEntryFonts = function () {
+          document.documentElement.classList.remove("entry-fonts-loading");
+        };
+        window.setTimeout(revealEntryFonts, 2000);
+        if (document.fonts && document.fonts.load) {
+          document.fonts.load('400 1em "Archivo Black"').then(revealEntryFonts).catch(revealEntryFonts);
+        } else {
+          revealEntryFonts();
+        }
       }
     })();
   </script>
