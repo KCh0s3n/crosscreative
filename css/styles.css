@@ -735,6 +735,8 @@ button {
 .how-progress {
   position: relative;
   padding-left: 28px;
+  align-self: start;
+  height: fit-content;
 }
 
 .how-progress::before {
@@ -751,8 +753,9 @@ button {
   position: absolute;
   left: 8px;
   top: 8px;
+  bottom: 8px;
   width: 1px;
-  height: calc(100% - 16px);
+  height: auto;
   background: linear-gradient(180deg, var(--accent), transparent);
   transform: scaleY(0);
   transform-origin: top center;
@@ -1331,57 +1334,31 @@ button {
     align-items: stretch;
   }
 
-  /* Mobile scrollytelling — horizontal dots, no side rail, longer scroll */
+  /* Mobile scrollytelling — same side rail as desktop, longer scroll */
   .how-work-scroll {
     height: 320vh;
   }
 
   .how-work-stage {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    gap: 18px;
+    grid-template-columns: minmax(72px, 100px) 1fr;
+    gap: 12px;
     padding: calc(var(--header-h) + 16px) 0 20px;
-    align-items: stretch;
+    align-items: center;
   }
 
   .how-progress {
-    padding-left: 0;
-    width: 100%;
-  }
-
-  .how-progress::before,
-  .how-progress-fill {
-    display: none;
+    padding-left: 18px;
   }
 
   .how-progress-list {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
+    gap: 12px;
   }
 
   .how-progress-item {
-    font-size: 0;
-    letter-spacing: 0;
-    gap: 0;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    gap: 8px;
     cursor: pointer;
-    transform: none !important;
-  }
-
-  .how-progress-item::before {
-    position: static;
-    left: auto;
-    width: 7px;
-    height: 7px;
-    transform: none;
-  }
-
-  .how-progress-item.is-active::before {
-    transform: scale(1.35);
-    box-shadow: 0 0 0 4px var(--accent-soft);
   }
 
   .how-step-panel {
