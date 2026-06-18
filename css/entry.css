@@ -531,7 +531,7 @@ html:not(.is-phone-entry) .entry-prompt-label--desktop {
 .entry-prompt-line {
   grid-area: 1 / 1;
   opacity: 0;
-  transition: opacity 0.7s ease-in-out;
+  transition: opacity 0.35s ease-in-out;
 }
 
 .entry-prompt-line.is-on {

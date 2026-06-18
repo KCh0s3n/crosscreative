@@ -66,7 +66,7 @@
       promptLines[onIndex].classList.remove("is-on");
       onIndex = (onIndex + 1) % promptLines.length;
       promptLines[onIndex].classList.add("is-on");
-    }, 1000);
+    }, 500);
   }
 
   const sparksEl = entry.querySelector(".entry-sparks");
