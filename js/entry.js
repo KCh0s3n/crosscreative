@@ -286,18 +286,4 @@
 
   window.addEventListener("keydown", onKeyDown);
   entry.addEventListener("pointerdown", onPointerDown);
-
-  // On touch devices there's no physical key, so prompt a tap instead.
-  const isTouch =
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0;
-
-  if (isTouch) {
-    entry.classList.add("entry--touch");
-    const label = entry.querySelector(".entry-prompt-label");
-    const key = entry.querySelector(".entry-prompt-key");
-    if (label) label.textContent = "Tap anywhere to enter";
-    if (key) key.remove();
-  }
 })();

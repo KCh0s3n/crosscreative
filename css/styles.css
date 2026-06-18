@@ -715,7 +715,7 @@ button {
 }
 
 .how-work-pin {
-  position: sticky;
+  position: relative;
   top: 0;
   height: 100vh;
   overflow: hidden;
@@ -1327,18 +1327,7 @@ button {
     align-items: stretch;
   }
 
-  /* Keep scrollytelling pin + fade on mobile — adapt layout only */
-  .how-work-scroll {
-    height: 220vh;
-  }
-
-  .how-work-pin {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow: hidden;
-  }
-
+  /* Keep scrollytelling pin + fade on mobile — same scroll distance as desktop */
   .how-work-stage {
     grid-template-columns: minmax(76px, 100px) 1fr;
     gap: 14px;
@@ -1362,7 +1351,8 @@ button {
   }
 
   .how-step-panel {
-    min-height: min(68vh, 480px);
+    min-height: min(62vh, 460px);
+    overflow: hidden;
   }
 
   .how-step {
@@ -1375,15 +1365,19 @@ button {
     visibility: hidden;
     transform: translateY(10px);
     margin-bottom: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overflow: hidden;
+    pointer-events: none;
   }
 
   .how-step.is-active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .step-visual {
+    display: none;
   }
 
   .step-title {
@@ -1688,10 +1682,6 @@ button {
     width: 64px;
   }
 
-  .how-work-scroll {
-    height: 200vh;
-  }
-
   .how-work-stage {
     grid-template-columns: minmax(64px, 84px) 1fr;
     gap: 10px;
@@ -1702,6 +1692,6 @@ button {
   }
 
   .how-step-panel {
-    min-height: min(64vh, 440px);
+    min-height: min(58vh, 420px);
   }
 }

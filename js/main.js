@@ -1063,6 +1063,7 @@
   const steps = Array.from(document.querySelectorAll(".how-step"));
   const progressFill = document.querySelector(".how-progress-fill");
   const scrollSection = document.querySelector(".how-work-scroll");
+  const pinPanel = document.querySelector(".how-work-pin");
   const reveals = document.querySelectorAll(".reveal");
   const floatPetals = document.querySelectorAll("[data-blossom-float]");
   let sceneTime = 0;
@@ -1190,17 +1191,16 @@
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
 
-  if (!prefersReduced && window.Lenis) {
-    const isTouch =
-      window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-      navigator.maxTouchPoints > 0;
+  /* Smooth scroll — desktop only; touch uses native scroll for reliable pinning */
+  const isTouch =
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+    navigator.maxTouchPoints > 0;
 
+  if (!prefersReduced && window.Lenis && !isTouch) {
     lenis = new Lenis({
-      duration: isTouch ? 0.85 : 1.1,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: true,
-      touchMultiplier: 1.35,
     });
 
     lenis.on("scroll", () => {
@@ -1237,19 +1237,22 @@
       });
     });
 
-    if (scrollSection && steps.length) {
+    if (scrollSection && steps.length && pinPanel) {
       const total = steps.length;
 
       processST = ScrollTrigger.create({
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
+        pin: pinPanel,
+        pinSpacing: true,
+        anticipatePin: 1,
         scrub: 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
           const index = Math.min(total - 1, Math.floor(progress * total));
-          const local = (progress * total) - index;
+          const local = progress * total - index;
 
           updateProcessStep(index, local);
 
@@ -1259,6 +1262,8 @@
           }
         },
       });
+
+      updateProcessStep(0, 0);
     }
 
     if (lenis) {

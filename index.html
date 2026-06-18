@@ -9,6 +9,12 @@
     (function () {
       var saved = localStorage.getItem("cc-theme");
       document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
+
+      var isTouch =
+        window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+      if (isTouch) document.documentElement.classList.add("is-touch");
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -235,8 +241,9 @@
     </div>
 
     <p class="entry-prompt" id="entry-prompt">
-      <span class="entry-prompt-label">Press C to access database</span>
-      <span class="entry-prompt-key"><kbd>C</kbd></span>
+      <span class="entry-prompt-label entry-prompt-label--desktop">Press C to access database</span>
+      <span class="entry-prompt-label entry-prompt-label--touch">Tap anywhere to enter</span>
+      <span class="entry-prompt-key" aria-hidden="true"><kbd>C</kbd></span>
     </p>
   </div>
 

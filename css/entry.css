@@ -479,6 +479,35 @@ body.entry-active {
   transition: opacity 0.3s ease;
 }
 
+.entry-prompt-label--touch {
+  display: none;
+}
+
+.entry-prompt-key {
+  display: flex;
+}
+
+/* Touch devices: show tap prompt immediately — no desktop flash */
+@media (hover: none) and (pointer: coarse) {
+  .entry-prompt-label--desktop,
+  .entry-prompt-key {
+    display: none !important;
+  }
+
+  .entry-prompt-label--touch {
+    display: block;
+  }
+}
+
+html.is-touch .entry-prompt-label--desktop,
+html.is-touch .entry-prompt-key {
+  display: none !important;
+}
+
+html.is-touch .entry-prompt-label--touch {
+  display: block;
+}
+
 .entry-prompt-label {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
