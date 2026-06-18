@@ -56,11 +56,18 @@
 
   const entryCore = entry.querySelector(".entry-core");
   const promptCycle = document.getElementById("entryPromptCycle");
-  const promptLines = promptCycle ? promptCycle.querySelectorAll(".entry-prompt-line") : [];
-  const isDesktopEntry = document.documentElement.dataset.entryDesktop === "1";
+  const promptLines = promptCycle ? [...promptCycle.querySelectorAll(".entry-prompt-line")] : [];
 
-  if (isDesktopEntry && promptLines.length >= 2) {
-    let onIndex = 0;
+  const shouldCycleDesktop = () => {
+    if (document.documentElement.classList.contains("is-phone-entry")) return false;
+    const mobileLabel = document.querySelector(".entry-prompt-label--mobile");
+    if (mobileLabel && window.getComputedStyle(mobileLabel).display !== "none") return false;
+    return promptLines.length >= 2;
+  };
+
+  if (shouldCycleDesktop()) {
+    let onIndex = promptLines.findIndex((line) => line.classList.contains("is-on"));
+    if (onIndex < 0) onIndex = 0;
 
     window.setInterval(() => {
       promptLines[onIndex].classList.remove("is-on");

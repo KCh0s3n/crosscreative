@@ -474,8 +474,10 @@
     }
   };
 
-  /* Desktop: hover expand. Mobile: tap expand, no hover. */
-  const isTouchAmbient = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  /* Mobile: tap only. Desktop: hover — narrow touch screens only for mobile path */
+  const isTouchAmbient =
+    window.matchMedia("(max-width: 980px)").matches &&
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   if (!isTouchAmbient) {
     player.addEventListener("pointerenter", expand);

@@ -538,7 +538,7 @@ html:not(.is-phone-entry) .entry-prompt-label--desktop {
 .entry-prompt-line.is-on {
   opacity: 1;
   visibility: visible;
-  animation: entry-prompt-shimmer 2.4s ease-in-out infinite;
+  animation: entry-prompt-blink 2.4s ease-in-out infinite;
 }
 
 @keyframes entry-prompt-shimmer {
