@@ -74,10 +74,10 @@
         cycleIndex = (cycleIndex + 1) % messages.length;
         promptCycle.textContent = messages[cycleIndex];
         promptCycle.classList.remove("is-fading");
-      }, 400);
+      }, 280);
     };
 
-    window.setInterval(cyclePrompt, 3200);
+    window.setInterval(cyclePrompt, 1000);
   }
 
   const sparksEl = entry.querySelector(".entry-sparks");
