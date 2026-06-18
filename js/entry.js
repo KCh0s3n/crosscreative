@@ -56,9 +56,8 @@
 
   const entryCore = entry.querySelector(".entry-core");
   const promptCycle = document.getElementById("entryPromptCycle");
-  const isDesktopEntry = window.matchMedia("(pointer: fine)").matches;
 
-  if (isDesktopEntry && promptCycle) {
+  if (!isPhoneEntry && promptCycle) {
     const cycleMsgs = promptCycle.querySelectorAll(".entry-prompt-cycle-msg");
     let activeIndex = 0;
 

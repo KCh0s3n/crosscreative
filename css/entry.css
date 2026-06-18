@@ -530,12 +530,18 @@ html:not(.is-phone-entry) .entry-prompt-label--desktop {
 .entry-prompt-cycle-msg {
   grid-area: 1 / 1;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
   animation: none;
 }
 
 .entry-prompt-cycle-msg.is-active {
   opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0s;
+}
+
+.entry-prompt-cycle-msg.is-active:not(.is-fading-out) {
   animation: entry-prompt-glow-pulse 2.4s ease-in-out infinite;
 }
 
@@ -884,12 +890,12 @@ html.is-phone-entry .entry-prompt-label--mobile {
 @keyframes entry-prompt-glow-pulse {
   0%,
   100% {
-    opacity: 0.48;
-    text-shadow: 0 0 0 transparent;
+    text-shadow: 0 0 4px rgba(224, 192, 128, 0.15);
+    filter: brightness(0.88);
   }
   50% {
-    opacity: 1;
-    text-shadow: 0 0 14px var(--accent-glow);
+    text-shadow: 0 0 16px var(--accent-glow);
+    filter: brightness(1);
   }
 }
 

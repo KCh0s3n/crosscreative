@@ -474,9 +474,10 @@
     }
   };
 
-  const prefersHoverExpand = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  /* Mobile/touch only — desktop hover expand stays unchanged */
+  const isTouchAmbient = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-  if (prefersHoverExpand) {
+  if (!isTouchAmbient) {
     player.addEventListener("pointerenter", expand);
     player.addEventListener("pointerleave", leaveCollapse);
     player.addEventListener("focusin", expand);
@@ -488,25 +489,23 @@
   toggleBtn.addEventListener("click", () => {
     muted = !muted;
     localStorage.setItem(STORAGE_MUTED, String(muted));
-    if (prefersHoverExpand) {
-      if (muted) {
-        collapseNow();
-      } else {
-        ensureRunning();
-        expand();
-      }
-    } else {
+    if (isTouchAmbient) {
       collapseNow();
       if (!muted) {
         ensureRunning();
       }
+    } else if (muted) {
+      collapseNow();
+    } else {
+      ensureRunning();
+      expand();
     }
     applyVolume();
     syncUi();
   });
 
   volumeSlider.addEventListener("input", () => {
-    if (prefersHoverExpand) {
+    if (!isTouchAmbient) {
       expand();
     }
     volume = clamp(parseInt(volumeSlider.value, 10) / 100, 0, 1);
@@ -520,12 +519,8 @@
     syncUi();
   });
 
-  volumeSlider.addEventListener("pointerup", () => {
-    if (prefersHoverExpand) scheduleCollapse(1500);
-  });
-  volumeSlider.addEventListener("change", () => {
-    if (prefersHoverExpand) scheduleCollapse(1500);
-  });
+  volumeSlider.addEventListener("pointerup", () => scheduleCollapse(1500));
+  volumeSlider.addEventListener("change", () => scheduleCollapse(1500));
 
   // Reveal the player and kick off audio once the visitor enters the site
   const onEntered = () => {
