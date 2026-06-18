@@ -733,8 +733,6 @@ button {
 .how-progress {
   position: relative;
   padding-left: 28px;
-  align-self: start;
-  height: fit-content;
 }
 
 .how-progress::before {
@@ -751,13 +749,10 @@ button {
   position: absolute;
   left: 8px;
   top: 8px;
-  bottom: 8px;
   width: 1px;
-  height: auto;
+  height: 0;
   background: linear-gradient(180deg, var(--accent), transparent);
-  transform: scaleY(0);
-  transform-origin: top center;
-  will-change: transform;
+  transform-origin: top;
 }
 
 .how-progress-list {
@@ -1332,9 +1327,9 @@ button {
     align-items: stretch;
   }
 
-  /* Mobile scrollytelling — same side rail as desktop, longer scroll */
+  /* Mobile only — side rail, slower step scroll, no stray track line */
   .how-work-scroll {
-    height: 320vh;
+    height: 380vh;
   }
 
   .how-work-stage {
@@ -1345,6 +1340,8 @@ button {
   }
 
   .how-progress {
+    align-self: start;
+    height: fit-content;
     padding-left: 18px;
   }
 

@@ -230,22 +230,6 @@ body.entry-active {
   opacity: 0.48;
 }
 
-.entry-hud-ring-spin {
-  transform-origin: 500px 500px;
-  transform-box: fill-box;
-  will-change: transform;
-  animation: entry-hud-rotate 9s linear infinite;
-}
-
-.entry-hud-ring-spin--mid {
-  animation-duration: 12s;
-  animation-direction: reverse;
-}
-
-.entry-hud-ring-spin--inner {
-  animation-duration: 7s;
-}
-
 .entry-hud-ring--mid {
   stroke-dasharray: 18 18;
   opacity: 0.35;
@@ -640,22 +624,25 @@ html.is-touch .entry-prompt-label--touch {
   stroke: var(--accent);
   opacity: 0.72;
   filter: drop-shadow(0 0 8px var(--accent-glow));
-}
-
-.entry-screen.is-surging .entry-hud-ring-spin,
-.entry-screen.is-lit .entry-hud-ring-spin {
   animation: entry-hud-rotate 5s linear infinite;
+  transform-origin: 500px 500px;
 }
 
-.entry-screen.is-surging .entry-hud-ring-spin--mid,
-.entry-screen.is-lit .entry-hud-ring-spin--mid {
+.entry-screen.is-surging .entry-hud-ring--mid,
+.entry-screen.is-lit .entry-hud-ring--mid {
   animation-duration: 7s;
   animation-direction: reverse;
 }
 
-.entry-screen.is-surging .entry-hud-ring-spin--inner,
-.entry-screen.is-lit .entry-hud-ring-spin--inner {
+.entry-screen.is-surging .entry-hud-ring--inner,
+.entry-screen.is-lit .entry-hud-ring--inner {
   animation-duration: 4s;
+}
+
+/* Mobile uses SVG spin (see entry.js) — avoid fighting CSS animation */
+html.is-touch .entry-screen.is-surging .entry-hud-ring,
+html.is-touch .entry-screen.is-lit .entry-hud-ring {
+  animation: none;
 }
 
 .entry-screen.is-surging .entry-hud-arc,

@@ -24,6 +24,47 @@
     entry.classList.add("entry--lite");
   }
 
+  const hudSpinAnims = [];
+
+  const attachMobileHudSpin = () => {
+    if (!isTouch) return;
+
+    const rings = [
+      { sel: ".entry-hud-ring--outer", dur: "12s", from: "0 500 500", to: "360 500 500" },
+      { sel: ".entry-hud-ring--mid", dur: "16s", from: "360 500 500", to: "0 500 500" },
+      { sel: ".entry-hud-ring--inner", dur: "10s", from: "0 500 500", to: "360 500 500" },
+    ];
+
+    rings.forEach(({ sel, dur, from, to }) => {
+      const circle = entry.querySelector(sel);
+      if (!circle || circle.parentElement?.classList.contains("entry-hud-ring-spin")) return;
+
+      const wrap = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      wrap.setAttribute("class", "entry-hud-ring-spin");
+      circle.parentNode.insertBefore(wrap, circle);
+      wrap.appendChild(circle);
+
+      const anim = document.createElementNS("http://www.w3.org/2000/svg", "animateTransform");
+      anim.setAttribute("attributeName", "transform");
+      anim.setAttribute("type", "rotate");
+      anim.setAttribute("from", from);
+      anim.setAttribute("to", to);
+      anim.setAttribute("dur", dur);
+      anim.setAttribute("repeatCount", "indefinite");
+      wrap.appendChild(anim);
+      hudSpinAnims.push({ anim, idle: dur });
+    });
+  };
+
+  const setHudSpinSpeed = (surge) => {
+    const fast = ["5s", "7s", "4s"];
+    hudSpinAnims.forEach((item, i) => {
+      item.anim.setAttribute("dur", surge ? fast[i] : item.idle);
+    });
+  };
+
+  attachMobileHudSpin();
+
   const sparksEl = entry.querySelector(".entry-sparks");
   const steamEl = entry.querySelector(".entry-steam");
   let bonded = false;
@@ -248,6 +289,7 @@
 
   const runSurge = () => {
     entry.classList.add("is-surging");
+    if (isTouch) setHudSpinSpeed(true);
     playSurgeSequence();
     spawnSparks(isTouch ? 14 : 28);
     vibrate([20, 35, 25, 50, 20]);

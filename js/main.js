@@ -1063,7 +1063,6 @@
   const steps = Array.from(document.querySelectorAll(".how-step"));
   const progressFill = document.querySelector(".how-progress-fill");
   const scrollSection = document.querySelector(".how-work-scroll");
-  const pinPanel = document.querySelector(".how-work-pin");
   const reveals = document.querySelectorAll(".reveal");
   const floatPetals = document.querySelectorAll("[data-blossom-float]");
   let sceneTime = 0;
@@ -1084,7 +1083,7 @@
 
     if (progressFill && total > 1) {
       const fillPct = ((index + Math.max(local, 0.08)) / (total - 1)) * 100;
-      progressFill.style.transform = `scaleY(${Math.min(1, fillPct / 100)})`;
+      progressFill.style.height = `${Math.min(100, fillPct)}%`;
     }
 
     if (index === activeProcessIndex) return;
@@ -1195,9 +1194,8 @@
   const isTouch =
     window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
     navigator.maxTouchPoints > 0;
-  const useGsapPin = !isTouch && window.innerWidth > 980;
 
-  /* Lenis: smooth wheel on desktop; native momentum on touch (no proxy fight) */
+  /* Desktop: Lenis smooth scroll (unchanged from ~8pm). Mobile: native scroll. */
   if (!prefersReduced && window.Lenis && !isTouch) {
     lenis = new Lenis({
       duration: 1.1,
@@ -1239,22 +1237,19 @@
       });
     });
 
-    if (scrollSection && steps.length && pinPanel) {
+    if (scrollSection && steps.length) {
       const total = steps.length;
 
       processST = ScrollTrigger.create({
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        pin: useGsapPin ? pinPanel : false,
-        pinSpacing: useGsapPin,
-        anticipatePin: useGsapPin ? 1 : 0,
-        scrub: true,
+        scrub: 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
           const index = Math.min(total - 1, Math.floor(progress * total));
-          const local = progress * total - index;
+          const local = (progress * total) - index;
 
           updateProcessStep(index, local);
 
@@ -1264,8 +1259,6 @@
           }
         },
       });
-
-      updateProcessStep(0, 0);
     }
 
     if (lenis) {
@@ -1282,12 +1275,16 @@
       });
 
       ScrollTrigger.addEventListener("refresh", () => lenis.resize());
+      ScrollTrigger.refresh();
+      window.addEventListener("orientationchange", () => {
+        window.setTimeout(() => ScrollTrigger.refresh(), 250);
+      });
+    } else {
+      ScrollTrigger.refresh();
+      window.addEventListener("orientationchange", () => {
+        window.setTimeout(() => ScrollTrigger.refresh(), 250);
+      });
     }
-
-    ScrollTrigger.refresh();
-    window.addEventListener("orientationchange", () => {
-      window.setTimeout(() => ScrollTrigger.refresh(), 250);
-    });
   } else {
     reveals.forEach((el) => {
       el.style.opacity = "1";
@@ -1296,7 +1293,7 @@
     if (steps.length) steps[0]?.classList.add("is-active");
     if (progressItems.length) progressItems[0]?.classList.add("is-active");
     if (heroLines.length) heroLines[0]?.classList.add("is-active");
-    if (progressFill) progressFill.style.transform = "scaleY(0)";
+    if (progressFill) progressFill.style.height = "0%";
   }
 
   /* Progress rail — click or keyboard to jump steps */
