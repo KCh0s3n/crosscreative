@@ -474,7 +474,7 @@
     }
   };
 
-  /* Mobile/touch only — desktop hover expand stays unchanged */
+  /* Desktop: hover expand. Mobile: tap expand, no hover. */
   const isTouchAmbient = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   if (!isTouchAmbient) {
@@ -484,30 +484,32 @@
     player.addEventListener("focusout", leaveCollapse);
   } else {
     player.classList.add("ambient-player--touch");
+    player.addEventListener("click", (e) => {
+      if (e.target.closest("#ambientToggle") || muted) return;
+      expand();
+      scheduleCollapse(2000);
+    });
   }
 
-  toggleBtn.addEventListener("click", () => {
+  toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
     muted = !muted;
     localStorage.setItem(STORAGE_MUTED, String(muted));
-    if (isTouchAmbient) {
-      collapseNow();
-      if (!muted) {
-        ensureRunning();
-      }
-    } else if (muted) {
+    if (muted) {
       collapseNow();
     } else {
       ensureRunning();
       expand();
+      if (isTouchAmbient) {
+        scheduleCollapse(2000);
+      }
     }
     applyVolume();
     syncUi();
   });
 
   volumeSlider.addEventListener("input", () => {
-    if (!isTouchAmbient) {
-      expand();
-    }
+    expand();
     volume = clamp(parseInt(volumeSlider.value, 10) / 100, 0, 1);
     localStorage.setItem(STORAGE_VOL, String(volume));
     if (volume > 0 && muted) {

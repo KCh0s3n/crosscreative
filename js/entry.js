@@ -58,26 +58,20 @@
   const promptCycle = document.getElementById("entryPromptCycle");
 
   if (!isPhoneEntry && promptCycle) {
-    const cycleMsgs = promptCycle.querySelectorAll(".entry-prompt-cycle-msg");
-    let activeIndex = 0;
+    const messages = [
+      "Press C key to enter database",
+      "Press the missing C to enter database",
+    ];
+    let msgIndex = 0;
 
-    const cyclePrompt = () => {
-      if (cycleMsgs.length < 2) return;
-      const current = cycleMsgs[activeIndex];
-      const nextIndex = (activeIndex + 1) % cycleMsgs.length;
-      const next = cycleMsgs[nextIndex];
-
-      current.classList.remove("is-active");
-      current.classList.add("is-fading-out");
-
+    window.setInterval(() => {
+      promptCycle.classList.add("is-swapping");
       window.setTimeout(() => {
-        current.classList.remove("is-fading-out");
-        next.classList.add("is-active");
-        activeIndex = nextIndex;
-      }, 400);
-    };
-
-    window.setInterval(cyclePrompt, 2500);
+        msgIndex = (msgIndex + 1) % messages.length;
+        promptCycle.textContent = messages[msgIndex];
+        promptCycle.classList.remove("is-swapping");
+      }, 480);
+    }, 2800);
   }
 
   const sparksEl = entry.querySelector(".entry-sparks");
