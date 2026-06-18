@@ -531,11 +531,13 @@ html:not(.is-phone-entry) .entry-prompt-label--desktop {
 .entry-prompt-line {
   grid-area: 1 / 1;
   opacity: 0;
-  transition: opacity 0.35s ease-in-out;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .entry-prompt-line.is-on {
   opacity: 1;
+  visibility: visible;
   animation: entry-prompt-shimmer 2.4s ease-in-out infinite;
 }
 
