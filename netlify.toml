@@ -1,0 +1,7 @@
+# Cross Creative — static site (no build step)
+[build]
+  publish = "."
+  command = ""
+
+# SPA-style section links (#work, #contact, etc.) are handled in-page;
+# no redirect rules needed for this portfolio.

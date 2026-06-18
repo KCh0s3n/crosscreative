@@ -1,0 +1,15 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Local env / secrets (never commit API keys)
+.env
+.env.*
+
+# Optional local preview file (not used on the live site)
+audio/voice_preview_*.mp3

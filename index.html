@@ -1,0 +1,700 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cross Creative · Shopify Storefront Design</title>
+  <meta name="description" content="Cross Creative — premium Shopify storefront design, UX, and clear layouts across desktop and mobile." />
+  <script>
+    (function () {
+      var saved = localStorage.getItem("cc-theme");
+      document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Orbitron:wght@500;700;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/entry.css" />
+</head>
+<body>
+  <div id="entry-screen" class="entry-screen" aria-hidden="false" aria-label="Connect">
+    <svg class="entry-mobo" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <radialGradient id="entryBoardLight" cx="50%" cy="50%" r="58%">
+          <stop offset="0%" stop-color="var(--surface)" stop-opacity="0.08"/>
+          <stop offset="45%" stop-color="var(--bg)" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="var(--bg)" stop-opacity="1"/>
+        </radialGradient>
+        <linearGradient id="entryChipPlate" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#181b22"/>
+          <stop offset="50%" stop-color="#090b10"/>
+          <stop offset="100%" stop-color="#1d2028"/>
+        </linearGradient>
+        <linearGradient id="entryPanelSkin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#10141a"/>
+          <stop offset="55%" stop-color="#05070a"/>
+          <stop offset="100%" stop-color="#151922"/>
+        </linearGradient>
+        <linearGradient id="entryTraceMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#10151b"/>
+          <stop offset="50%" stop-color="#262d36"/>
+          <stop offset="100%" stop-color="#10151b"/>
+        </linearGradient>
+        <filter id="entryTraceGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.2" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="entryHudGlow" x="-35%" y="-35%" width="170%" height="170%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <rect class="entry-board-base" width="1000" height="1000"/>
+      <rect width="1000" height="1000" fill="url(#entryBoardLight)"/>
+
+      <g class="entry-board-panels">
+        <rect x="82" y="132" width="208" height="128" rx="8"/>
+        <rect x="710" y="126" width="220" height="138" rx="8"/>
+        <rect x="92" y="730" width="212" height="132" rx="8"/>
+        <rect x="700" y="734" width="230" height="126" rx="8"/>
+        <rect x="386" y="86" width="228" height="54" rx="6"/>
+        <rect x="370" y="860" width="260" height="56" rx="6"/>
+      </g>
+
+      <g class="entry-panel-lines">
+        <path d="M 108,164 H 264 M 108,198 H 220 M 736,162 H 904 M 736,202 H 864"/>
+        <path d="M 120,770 H 278 M 120,814 H 226 M 728,770 H 902 M 728,812 H 850"/>
+        <path d="M 418,113 H 582 M 408,888 H 592"/>
+      </g>
+
+      <g class="entry-traces entry-traces--shadow">
+        <path d="M 20,210 H 210 V 292 H 340 V 382 H 427"/>
+        <path d="M 980,210 H 790 V 292 H 660 V 382 H 573"/>
+        <path d="M 20,790 H 210 V 708 H 340 V 618 H 427"/>
+        <path d="M 980,790 H 790 V 708 H 660 V 618 H 573"/>
+        <path d="M 500,18 V 174 H 462 V 306 H 430 V 427"/>
+        <path d="M 500,982 V 826 H 538 V 694 H 570 V 573"/>
+        <path d="M 18,500 H 178 V 462 H 306 V 430 H 427"/>
+        <path d="M 982,500 H 822 V 538 H 694 V 570 H 573"/>
+        <path d="M 92,92 H 236 V 220 H 316 V 316 H 420"/>
+        <path d="M 908,92 H 764 V 220 H 684 V 316 H 580"/>
+        <path d="M 92,908 H 236 V 780 H 316 V 684 H 420"/>
+        <path d="M 908,908 H 764 V 780 H 684 V 684 H 580"/>
+      </g>
+
+      <g class="entry-traces entry-traces--body">
+        <path d="M 20,210 H 210 V 292 H 340 V 382 H 427"/>
+        <path d="M 980,210 H 790 V 292 H 660 V 382 H 573"/>
+        <path d="M 20,790 H 210 V 708 H 340 V 618 H 427"/>
+        <path d="M 980,790 H 790 V 708 H 660 V 618 H 573"/>
+        <path d="M 500,18 V 174 H 462 V 306 H 430 V 427"/>
+        <path d="M 500,982 V 826 H 538 V 694 H 570 V 573"/>
+        <path d="M 18,500 H 178 V 462 H 306 V 430 H 427"/>
+        <path d="M 982,500 H 822 V 538 H 694 V 570 H 573"/>
+        <path d="M 92,92 H 236 V 220 H 316 V 316 H 420"/>
+        <path d="M 908,92 H 764 V 220 H 684 V 316 H 580"/>
+        <path d="M 92,908 H 236 V 780 H 316 V 684 H 420"/>
+        <path d="M 908,908 H 764 V 780 H 684 V 684 H 580"/>
+      </g>
+
+      <g class="entry-traces entry-traces--energy" filter="url(#entryTraceGlow)">
+        <path d="M 20,210 H 210 V 292 H 340 V 382 H 427"/>
+        <path d="M 980,210 H 790 V 292 H 660 V 382 H 573"/>
+        <path d="M 20,790 H 210 V 708 H 340 V 618 H 427"/>
+        <path d="M 980,790 H 790 V 708 H 660 V 618 H 573"/>
+        <path d="M 500,18 V 174 H 462 V 306 H 430 V 427"/>
+        <path d="M 500,982 V 826 H 538 V 694 H 570 V 573"/>
+        <path d="M 18,500 H 178 V 462 H 306 V 430 H 427"/>
+        <path d="M 982,500 H 822 V 538 H 694 V 570 H 573"/>
+        <path d="M 92,92 H 236 V 220 H 316 V 316 H 420"/>
+        <path d="M 908,92 H 764 V 220 H 684 V 316 H 580"/>
+        <path d="M 92,908 H 236 V 780 H 316 V 684 H 420"/>
+        <path d="M 908,908 H 764 V 780 H 684 V 684 H 580"/>
+      </g>
+
+      <g class="entry-vias">
+        <circle cx="210" cy="292" r="5"/><circle cx="790" cy="292" r="5"/>
+        <circle cx="210" cy="708" r="5"/><circle cx="790" cy="708" r="5"/>
+        <circle cx="462" cy="306" r="4"/><circle cx="538" cy="694" r="4"/>
+        <circle cx="306" cy="430" r="4"/><circle cx="694" cy="570" r="4"/>
+        <circle cx="316" cy="316" r="4"/><circle cx="684" cy="316" r="4"/>
+        <circle cx="316" cy="684" r="4"/><circle cx="684" cy="684" r="4"/>
+      </g>
+
+      <g class="entry-chip-stack">
+        <rect class="entry-chip-shadow" x="376" y="376" width="248" height="248" rx="18"/>
+        <rect class="entry-chip-underplate" x="386" y="386" width="228" height="228" rx="16"/>
+        <rect class="entry-chip-plate" x="394" y="394" width="212" height="212" rx="14"/>
+        <rect class="entry-chip-inner" x="421" y="421" width="158" height="158" rx="10"/>
+        <g class="entry-chip-pins entry-chip-pins--top">
+          <line x1="424" y1="384" x2="424" y2="401"/><line x1="448" y1="384" x2="448" y2="401"/>
+          <line x1="472" y1="384" x2="472" y2="401"/><line x1="496" y1="384" x2="496" y2="401"/>
+          <line x1="520" y1="384" x2="520" y2="401"/><line x1="544" y1="384" x2="544" y2="401"/>
+          <line x1="568" y1="384" x2="568" y2="401"/>
+        </g>
+        <g class="entry-chip-pins entry-chip-pins--bottom">
+          <line x1="424" y1="599" x2="424" y2="616"/><line x1="448" y1="599" x2="448" y2="616"/>
+          <line x1="472" y1="599" x2="472" y2="616"/><line x1="496" y1="599" x2="496" y2="616"/>
+          <line x1="520" y1="599" x2="520" y2="616"/><line x1="544" y1="599" x2="544" y2="616"/>
+          <line x1="568" y1="599" x2="568" y2="616"/>
+        </g>
+        <g class="entry-chip-pins entry-chip-pins--left">
+          <line x1="384" y1="424" x2="401" y2="424"/><line x1="384" y1="448" x2="401" y2="448"/>
+          <line x1="384" y1="472" x2="401" y2="472"/><line x1="384" y1="496" x2="401" y2="496"/>
+          <line x1="384" y1="520" x2="401" y2="520"/><line x1="384" y1="544" x2="401" y2="544"/>
+          <line x1="384" y1="568" x2="401" y2="568"/>
+        </g>
+        <g class="entry-chip-pins entry-chip-pins--right">
+          <line x1="599" y1="424" x2="616" y2="424"/><line x1="599" y1="448" x2="616" y2="448"/>
+          <line x1="599" y1="472" x2="616" y2="472"/><line x1="599" y1="496" x2="616" y2="496"/>
+          <line x1="599" y1="520" x2="616" y2="520"/><line x1="599" y1="544" x2="616" y2="544"/>
+          <line x1="599" y1="568" x2="616" y2="568"/>
+        </g>
+        <g class="entry-chip-detail">
+          <path d="M 452,452 H 482 V 470 H 500"/>
+          <path d="M 548,452 H 518 V 470 H 500"/>
+          <path d="M 452,548 H 482 V 530 H 500"/>
+          <path d="M 548,548 H 518 V 530 H 500"/>
+          <circle cx="452" cy="452" r="3"/><circle cx="548" cy="452" r="3"/>
+          <circle cx="452" cy="548" r="3"/><circle cx="548" cy="548" r="3"/>
+        </g>
+        <circle class="entry-missing-socket" cx="500" cy="500" r="64"/>
+      </g>
+
+      <g class="entry-hud" filter="url(#entryHudGlow)">
+        <circle class="entry-hud-ring entry-hud-ring--outer" cx="500" cy="500" r="188"/>
+        <circle class="entry-hud-ring entry-hud-ring--mid" cx="500" cy="500" r="154"/>
+        <circle class="entry-hud-ring entry-hud-ring--inner" cx="500" cy="500" r="120"/>
+        <path class="entry-hud-arc entry-hud-arc--a" d="M 500,300 A 200,200 0 0 1 700,500"/>
+        <path class="entry-hud-arc entry-hud-arc--b" d="M 500,700 A 200,200 0 0 1 300,500"/>
+        <path class="entry-hud-arc entry-hud-arc--c" d="M 360,360 A 198,198 0 0 1 640,360"/>
+        <path class="entry-hud-arc entry-hud-arc--d" d="M 640,640 A 198,198 0 0 1 360,640"/>
+        <g class="entry-hud-ticks">
+          <line x1="500" y1="286" x2="500" y2="314"/>
+          <line x1="500" y1="686" x2="500" y2="714"/>
+          <line x1="286" y1="500" x2="314" y2="500"/>
+          <line x1="686" y1="500" x2="714" y2="500"/>
+          <line x1="350" y1="350" x2="370" y2="370"/>
+          <line x1="650" y1="350" x2="630" y2="370"/>
+          <line x1="350" y1="650" x2="370" y2="630"/>
+          <line x1="650" y1="650" x2="630" y2="630"/>
+        </g>
+        <g class="entry-hud-brackets">
+          <path d="M 330,410 V 330 H 410"/>
+          <path d="M 590,330 H 670 V 410"/>
+          <path d="M 670,590 V 670 H 590"/>
+          <path d="M 410,670 H 330 V 590"/>
+        </g>
+      </g>
+    </svg>
+
+    <div class="entry-core">
+      <div class="entry-power-bloom" aria-hidden="true"></div>
+      <div class="entry-socket-ring entry-socket-ring--outer" aria-hidden="true"></div>
+      <div class="entry-socket-ring" aria-hidden="true"></div>
+      <svg class="entry-canvas" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="presentation" aria-hidden="true">
+        <defs>
+          <linearGradient id="artifactFill" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stop-color="#f5e6a8"/>
+            <stop offset="45%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-deep)"/>
+          </linearGradient>
+          <linearGradient id="socketStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--muted)" stop-opacity="0.38"/>
+            <stop offset="100%" stop-color="var(--border)" stop-opacity="0.62"/>
+          </linearGradient>
+          <linearGradient id="surgeEnergy" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff8e8"/>
+            <stop offset="45%" stop-color="var(--accent)"/>
+            <stop offset="100%" stop-color="var(--accent-deep)"/>
+          </linearGradient>
+        </defs>
+        <circle class="entry-socket-bg entry-socket-bg--outer" cx="160" cy="160" r="118" fill="none" stroke="var(--border)" stroke-width="2"/>
+        <circle class="entry-socket-bg entry-socket-bg--inner" cx="160" cy="160" r="108" fill="var(--bg-elevated)" stroke="var(--border)" stroke-width="1"/>
+        <circle class="entry-socket-bg entry-socket-bg--well" cx="160" cy="160" r="92" fill="var(--bg)" stroke="var(--border)" stroke-width="1.5" opacity="0.42"/>
+        <text class="entry-c-outline" x="160" y="160" text-anchor="middle" dominant-baseline="central" font-family="'Archivo Black', sans-serif" font-size="148" font-weight="400" fill="none" stroke="url(#socketStroke)" stroke-width="2.5">C</text>
+        <g class="entry-c-insert">
+          <text class="entry-c-fill" x="160" y="160" text-anchor="middle" dominant-baseline="central" font-family="'Archivo Black', sans-serif" font-size="148" font-weight="400" fill="url(#artifactFill)">C</text>
+        </g>
+      </svg>
+      <div class="entry-flash" aria-hidden="true"></div>
+      <div class="entry-steam" aria-hidden="true"></div>
+      <div class="entry-sparks" aria-hidden="true"></div>
+    </div>
+
+    <div class="entry-hud-overlay" aria-hidden="true">
+      <div class="entry-scan-beam"></div>
+    </div>
+
+    <p class="entry-prompt" id="entry-prompt">
+      <span class="entry-prompt-label">Press C to access database</span>
+      <span class="entry-prompt-key"><kbd>C</kbd></span>
+    </p>
+  </div>
+
+  <div class="scene-bg" aria-hidden="true">
+    <svg class="scene-petals" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" role="presentation">
+      <defs>
+        <path id="petalA" d="M0 -12 C-6 -11.5 -10.5 -5 -10 1.5 C-9.5 7 -4.5 10 0 9.5 C4.5 10 9.5 7 10 1.5 C10.5 -5 6 -11.5 0 -12Z" />
+        <path id="petalB" d="M0 -10.5 C-5 -10 -9 -4.2 -8.5 1.8 C-8 6.8 -3.8 9.2 0 8.8 C3.8 9.2 8 6.8 8.5 1.8 C9 -4.2 5 -10 0 -10.5Z" />
+        <path id="petalC" d="M0 -9 C-4.5 -8.5 -8 -3.8 -7.5 1.2 C-7 5.8 -3.2 8 0 7.6 C3.2 8 7 5.8 7.5 1.2 C8 -3.8 4.5 -8.5 0 -9Z" />
+        <radialGradient id="petalGradA" cx="45%" cy="40%" r="65%">
+          <stop offset="0%" stop-color="var(--petal-highlight)" />
+          <stop offset="55%" stop-color="var(--petal-mid)" />
+          <stop offset="100%" stop-color="var(--petal-edge)" stop-opacity="0.9" />
+        </radialGradient>
+        <radialGradient id="petalGradB" cx="50%" cy="38%" r="60%">
+          <stop offset="0%" stop-color="var(--petal-highlight)" />
+          <stop offset="50%" stop-color="var(--petal-mid)" />
+          <stop offset="100%" stop-color="var(--petal-deep)" stop-opacity="0.85" />
+        </radialGradient>
+        <radialGradient id="petalGradC" cx="42%" cy="42%" r="58%">
+          <stop offset="0%" stop-color="var(--petal-highlight)" />
+          <stop offset="60%" stop-color="var(--petal-mid)" />
+          <stop offset="100%" stop-color="var(--petal-edge)" stop-opacity="0.8" />
+        </radialGradient>
+      </defs>
+
+      <g class="scene-petal-layer">
+        <g class="scene-petal" data-blossom-float data-ox="90" data-oy="-60" data-rot="12" data-speed="0.72" data-depth="1.35" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="220" data-oy="-120" data-rot="-18" data-speed="0.95" data-depth="0.7" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="360" data-oy="-40" data-rot="24" data-speed="0.65" data-depth="1.1" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="500" data-oy="-90" data-rot="-6" data-speed="1.08" data-depth="1.5" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="640" data-oy="-55" data-rot="15" data-speed="0.82" data-depth="0.85" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="780" data-oy="-110" data-rot="-22" data-speed="0.98" data-depth="1.2" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="910" data-oy="-75" data-rot="8" data-speed="0.78" data-depth="0.6" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="140" data-oy="-150" data-rot="-14" data-speed="1.12" data-depth="1.25" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="300" data-oy="-130" data-rot="20" data-speed="0.88" data-depth="0.75" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="460" data-oy="-170" data-rot="-10" data-speed="1.02" data-depth="1.4" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="600" data-oy="-140" data-rot="28" data-speed="0.7" data-depth="0.9" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="750" data-oy="-160" data-rot="-16" data-speed="1.15" data-depth="1.15" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="880" data-oy="-190" data-rot="6" data-speed="0.92" data-depth="0.65" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="50" data-oy="-200" data-rot="-24" data-speed="0.85" data-depth="1.3" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="180" data-oy="-220" data-rot="18" data-speed="1.05" data-depth="0.8" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="400" data-oy="-210" data-rot="-8" data-speed="0.75" data-depth="1.45" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="550" data-oy="-230" data-rot="22" data-speed="1.1" data-depth="0.7" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="700" data-oy="-200" data-rot="-12" data-speed="0.8" data-depth="1.05" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="830" data-oy="-240" data-rot="14" data-speed="0.96" data-depth="1.2" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="320" data-oy="-260" data-rot="-20" data-speed="0.68" data-depth="0.55" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="480" data-oy="-250" data-rot="10" data-speed="1.18" data-depth="1.35" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="660" data-oy="-270" data-rot="-18" data-speed="0.9" data-depth="0.95" data-shape="a"><use href="#petalA" fill="url(#petalGradA)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="950" data-oy="-280" data-rot="16" data-speed="1.0" data-depth="1.1" data-shape="b"><use href="#petalB" fill="url(#petalGradB)" /></g>
+        <g class="scene-petal" data-blossom-float data-ox="110" data-oy="-300" data-rot="-8" data-speed="0.74" data-depth="1.5" data-shape="c"><use href="#petalC" fill="url(#petalGradC)" /></g>
+      </g>
+    </svg>
+    <div class="scene-ninja-watermark" aria-hidden="true">
+      <img src="images/cross-creative-ninja.png" alt="" />
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="container">
+      <a href="#" class="logo">Cross <span>Creative</span></a>
+      <div class="header-actions">
+        <nav class="nav" id="primaryNav" aria-label="Primary">
+          <a href="#work" data-section="work">Work</a>
+          <a href="#process" data-section="process">Process</a>
+          <a href="#services" data-section="services">Services</a>
+          <a href="#contact" class="nav-cta" data-section="contact">Get in touch</a>
+        </nav>
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          type="button"
+          aria-label="Switch to light mode"
+          aria-pressed="false"
+          title="Toggle colour theme"
+        >
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+        </button>
+        <label class="language-select" for="languageSelect">
+          <select id="languageSelect" aria-label="Select language">
+            <option value="en">ENG</option>
+            <option value="es">ESP</option>
+            <option value="zh-Hans">中文</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ar">عربي</option>
+            <option value="fr">FRA</option>
+            <option value="cy">CYM</option>
+            <option value="ga">GAE</option>
+            <option value="is">ÍSL</option>
+            <option value="mt">MLT</option>
+            <option value="eu">EUS</option>
+          </select>
+        </label>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="primaryNav"
+        >
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Shopify · Online Store 2.0</p>
+          <h1>Storefront design that feels <em>precision-built</em></h1>
+          <p class="hero-lead">
+            Cross Creative delivers landing pages and multi-page Shopify builds — clear layouts, easy navigation, and careful desktop and mobile checks.
+          </p>
+          <div class="hero-actions">
+            <!-- Single project for now — wrap in .featured-project-menu when adding a dropdown -->
+            <a
+              class="btn btn-primary"
+              href="https://brokenheartsldn.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >View featured project</a>
+            <a class="btn btn-ghost" href="https://www.fiverr.com/" target="_blank" rel="noopener noreferrer">Fiverr profile</a>
+          </div>
+        </div>
+        <aside class="hero-card reveal">
+          <p class="hero-card-label">At a glance</p>
+          <div class="hero-stats">
+            <div class="stat"><strong>Shopify pages</strong><span>Landing pages, sections, and storefront layouts</span></div>
+            <div class="stat"><strong>Checked on desktop and phone</strong><span>Layouts reviewed before handoff</span></div>
+            <div class="stat"><strong>No guesswork</strong><span>Scope, timeline, and price agreed before build</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Featured work</p>
+          <h2 class="section-title">Broken Hearts LDN</h2>
+          <p class="section-copy">
+            Clothing storefront — structure, responsive layout, and UI polish using Online Store 2.0 themes. Built for clear navigation and straightforward updates in the theme editor.
+          </p>
+        </div>
+        <div class="work-grid">
+          <article class="card reveal">
+            <h3>Shopify storefront</h3>
+            <p>Top page section, product story blocks, navigation, and mobile layout refinements.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Theme editor ready</h3>
+            <p>Structured sections, consistent typography, and layouts you can update without code for routine edits.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Client review</h3>
+            <p>“Working with Khai has been phenomenal. His focus and attention to detail makes it so easy to work with.”</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How I Work — eXPD8-inspired scrollytelling -->
+    <section class="how-work" id="process" aria-labelledby="process-title">
+      <div class="how-work-intro">
+        <div class="container">
+          <p class="section-kicker reveal">How I work</p>
+          <div class="how-hero-lines" aria-hidden="true">
+            <p class="how-hero-line is-active">I listen <em>first</em></p>
+            <p class="how-hero-line">I design with <em>purpose</em></p>
+            <p class="how-hero-line">I build for <em>Shopify</em></p>
+            <p class="how-hero-line">I deliver <em>first time</em></p>
+          </div>
+          <p class="section-copy reveal" id="process-title">
+            Every project follows a deliberate process — from brief to launch — so the final storefront feels considered, premium, and easy to maintain.
+          </p>
+        </div>
+      </div>
+
+      <div class="how-work-scroll">
+        <div class="how-work-pin">
+          <div class="container how-work-stage">
+            <aside class="how-progress" aria-label="Process steps">
+              <div class="how-progress-fill"></div>
+              <ol class="how-progress-list">
+                <li class="how-progress-item is-active" data-step="0" role="button" tabindex="0" aria-label="Go to step 1: Discover">Discover</li>
+                <li class="how-progress-item" data-step="1" role="button" tabindex="0" aria-label="Go to step 2: Research">Research</li>
+                <li class="how-progress-item" data-step="2" role="button" tabindex="0" aria-label="Go to step 3: Structure">Structure</li>
+                <li class="how-progress-item" data-step="3" role="button" tabindex="0" aria-label="Go to step 4: Design">Design</li>
+                <li class="how-progress-item" data-step="4" role="button" tabindex="0" aria-label="Go to step 5: Build">Build</li>
+                <li class="how-progress-item" data-step="5" role="button" tabindex="0" aria-label="Go to step 6: Refine">Refine</li>
+                <li class="how-progress-item" data-step="6" role="button" tabindex="0" aria-label="Go to step 7: Launch">Launch</li>
+              </ol>
+            </aside>
+
+            <div class="how-step-panel">
+              <article class="how-step is-active" data-step="0">
+                <div>
+                  <p class="step-index">Step 01</p>
+                  <h3 class="step-title">Discover</h3>
+                  <p class="step-copy">I listen, clarify goals, and understand the brand before touching a layout. A strong brief saves time and prevents expensive rework later.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">Client goals</span>
+                    <span class="step-tag">Scope definition</span>
+                    <span class="step-tag">Brand direction</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">Discovery output</p>
+                    <p class="visual-metric">Brief</p>
+                    <p class="visual-caption">What you're building, what you need, and how long it will take — all disclosed before design starts.</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="how-step" data-step="1">
+                <div>
+                  <p class="step-index">Step 02</p>
+                  <h3 class="step-title">Research</h3>
+                  <p class="step-copy">I look at other stores, brand references, and how your customers actually shop — so the direction fits your brand, not a generic theme.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">Reference stores</span>
+                    <span class="step-tag">Competitors</span>
+                    <span class="step-tag">Brand direction</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">Research output</p>
+                    <p class="visual-metric">Direction</p>
+                    <p class="visual-caption">A clear visual direction locked in before any layouts are built.</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="how-step" data-step="2">
+                <div>
+                  <p class="step-index">Step 03</p>
+                  <h3 class="step-title">Structure</h3>
+                  <p class="step-copy">Wireframes define page flow, navigation, and content hierarchy — the skeleton that keeps the experience intuitive on every device.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">Wireframes</span>
+                    <span class="step-tag">Navigation</span>
+                    <span class="step-tag">Page flow</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">UX foundation</p>
+                    <p class="visual-metric">Flow</p>
+                    <p class="visual-caption">A simple map of your pages and navigation — so the shop is easy to browse on any device.</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="how-step" data-step="3">
+                <div>
+                  <p class="step-index">Step 04</p>
+                  <h3 class="step-title">Design</h3>
+                  <p class="step-copy">Typography, spacing, colour, and layout are shaped directly in the Shopify theme — premium feel by design, not accident.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">Visual design</span>
+                    <span class="step-tag">UI system</span>
+                    <span class="step-tag">Typography</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">Visual system</p>
+                    <p class="visual-metric">UI</p>
+                    <p class="visual-caption">Fonts, colours, and page layouts built in the theme — you see the full look as it comes together.</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="how-step" data-step="4">
+                <div>
+                  <p class="step-index">Step 05</p>
+                  <h3 class="step-title">Build</h3>
+                  <p class="step-copy">Design is translated into Shopify Online Store 2.0 sections — responsive, editable, and built for real merchant workflows in the theme editor.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">Shopify OS 2.0</span>
+                    <span class="step-tag">Sections</span>
+                    <span class="step-tag">Responsive</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">Implementation</p>
+                    <p class="visual-metric">Build</p>
+                    <p class="visual-caption">Design built into Shopify OS 2.0 sections — editable in the theme editor without code.</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="how-step" data-step="5">
+                <div>
+                  <p class="step-index">Step 06</p>
+                  <h3 class="step-title">Refine</h3>
+                  <p class="step-copy">Cross-device testing, spacing polish, and performance-minded refinements — the details that separate a template from a premium storefront.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">QA pass</span>
+                    <span class="step-tag">Mobile polish</span>
+                    <span class="step-tag">Iteration</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">Quality pass</p>
+                    <p class="visual-metric">Polish</p>
+                    <p class="visual-caption">Checked on mobile and desktop — spacing, layout, and details tightened before go-live.</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="how-step" data-step="6">
+                <div>
+                  <p class="step-index">Step 07</p>
+                  <h3 class="step-title">Launch</h3>
+                  <p class="step-copy">Handoff with a storefront you can own — clear structure, launch-ready polish, and confidence updating content in Shopify without starting over.</p>
+                  <div class="step-tags">
+                    <span class="step-tag">Handoff</span>
+                    <span class="step-tag">Go live</span>
+                    <span class="step-tag">Client-ready</span>
+                  </div>
+                </div>
+                <div class="step-visual">
+                  <div class="step-visual-inner">
+                    <p class="visual-label">Delivery</p>
+                    <p class="visual-metric">Live</p>
+                    <p class="visual-caption">Your store goes live — ready for you to update products, images, and sections yourself.</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="how-work-outro container reveal">
+        <h3>Precision execution, <em>first time… every time</em></h3>
+        <p>Intentional process. Premium result. Built to last in Shopify.</p>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-kicker">Here's What I Build</p>
+          <h2 class="section-title">Landing Pages, Storefronts & Multi-Page Shopify Builds</h2>
+          <p class="section-copy">Predictable timelines, premium polish, and scope you can understand before we start.</p>
+        </div>
+        <div class="services-grid">
+          <article class="card reveal">
+            <h3>Landing pages</h3>
+            <p>A focused Shopify page with a clear top section, proof, FAQs, and call-to-action blocks tuned to your offer.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Frontend builds</h3>
+            <p>Multi-page storefront experiences with shared header/footer and a consistent design system.</p>
+          </article>
+          <article class="card reveal">
+            <h3>Launch-ready polish</h3>
+            <p>Cross-device pass, spacing and type rhythm, and handoff you can maintain in Shopify.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div>
+            <p class="section-kicker">Contact</p>
+            <h2 class="section-title">Bring your vision to life</h2>
+            <p class="section-copy">Scope. Create. Launch. Tell me about your project and let's build something that feels top-tier.</p>
+          </div>
+          <button class="btn btn-primary contact-email-trigger" id="contactEmailTrigger" type="button">
+            khaiacr27@gmail.com
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="email-modal" id="emailModal" aria-hidden="true">
+    <div class="email-modal__backdrop" data-email-close></div>
+    <div class="email-modal__panel" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" aria-describedby="emailModalCopy">
+      <button class="email-modal__close" type="button" data-email-close aria-label="Close email popup">×</button>
+      <p class="section-kicker">Contact email</p>
+      <h2 class="email-modal__title" id="emailModalTitle">Ready when you are</h2>
+      <p class="email-modal__copy" id="emailModalCopy">Copy the email address, then send over your project details when you're ready.</p>
+      <div class="email-copy-card">
+        <span class="email-copy-card__address" id="contactEmailAddress">khaiacr27@gmail.com</span>
+        <button class="ninja-copy" id="copyEmailButton" type="button" aria-label="Copy email address">
+          <img class="ninja-copy__figure" src="images/cross-creative-ninja.png" alt="" aria-hidden="true" />
+        </button>
+      </div>
+      <p class="email-modal__status" id="copyEmailStatus" aria-live="polite">Tap the ninja to copy.</p>
+    </div>
+  </div>
+
+  <div class="ambient-player" id="ambientPlayer" data-state="off" role="group" aria-label="Ambient music">
+    <button
+      class="ambient-player__toggle"
+      id="ambientToggle"
+      type="button"
+      aria-pressed="false"
+      aria-label="Play ambient music"
+      title="Cherry-blossom ambience"
+    >
+      <span class="ambient-player__petals" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </span>
+      <svg class="ambient-icon ambient-icon--on" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z" />
+        <path d="M16.5 8.5a4 4 0 0 1 0 7" />
+        <path d="M19 6a7 7 0 0 1 0 12" />
+      </svg>
+      <svg class="ambient-icon ambient-icon--off" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z" />
+        <path d="M22 9l-6 6M16 9l6 6" />
+      </svg>
+    </button>
+    <input
+      class="ambient-player__volume"
+      id="ambientVolume"
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      aria-label="Music volume"
+    />
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© Cross Creative</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/entry.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ambient.js"></script>
+  <script src="js/voice-config.js"></script>
+  <script src="js/welcome.js"></script>
+</body>
+</html>

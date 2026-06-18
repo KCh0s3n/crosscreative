@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff3c4"/>
+      <stop offset="22%" stop-color="#e8c86a"/>
+      <stop offset="50%" stop-color="#f5e6a8"/>
+      <stop offset="78%" stop-color="#c9a227"/>
+      <stop offset="100%" stop-color="#7a5a18"/>
+    </linearGradient>
+    <linearGradient id="goldRim" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8a6320"/>
+      <stop offset="40%" stop-color="#f0d878"/>
+      <stop offset="100%" stop-color="#a67c00"/>
+    </linearGradient>
+    <linearGradient id="goldBright" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffef5"/>
+      <stop offset="50%" stop-color="#ffe566"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+    <radialGradient id="blackWell" cx="35%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </radialGradient>
+    <pattern id="damask" width="12" height="12" patternUnits="userSpaceOnUse">
+      <path d="M0,6 Q3,0 6,6 T12,6" stroke="#1f1f1f" stroke-width="0.6" fill="none"/>
+      <path d="M0,0 Q6,6 0,12" stroke="#141414" stroke-width="0.5" fill="none"/>
+    </pattern>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer body ring -->
+  <path fill="url(#goldFace)" d="
+    M 292,58 C 188,38 72,98 58,260 C 44,422 158,492 292,468
+    L 276,424 C 168,444 98,372 108,260 C 118,148 192,88 276,100
+    C 300,104 310,78 292,58 Z
+    M 268,118 C 188,108 138,168 132,260 C 126,352 178,412 258,418
+    L 248,382 C 188,376 152,332 156,260 C 160,188 202,148 262,152
+    C 278,154 282,128 268,118 Z
+  "/>
+
+  <!-- Black recessed interior -->
+  <path fill="url(#blackWell)" d="
+    M 268,118 C 188,108 138,168 132,260 C 126,352 178,412 258,418
+    L 248,382 C 188,376 152,332 156,260 C 160,188 202,148 262,152
+    C 278,154 282,128 268,118 Z
+  "/>
+  <path fill="url(#damask)" opacity="0.55" d="
+    M 268,118 C 188,108 138,168 132,260 C 126,352 178,412 258,418
+    L 248,382 C 188,376 152,332 156,260 C 160,188 202,148 262,152
+    C 278,154 282,128 268,118 Z
+  "/>
+
+  <!-- Top volute scroll -->
+  <path fill="url(#goldRim)" d="
+    M 292,58 C 318,52 338,72 328,96 C 318,120 290,112 284,88 C 278,68 276,62 292,58 Z
+    M 300,70 C 312,68 318,78 314,88 C 310,98 298,94 296,84 C 294,76 296,72 300,70 Z
+  "/>
+  <!-- Bottom volute scroll -->
+  <path fill="url(#goldRim)" d="
+    M 292,468 C 318,474 338,454 328,430 C 318,406 290,414 284,438 C 278,458 276,464 292,468 Z
+    M 300,456 C 312,458 318,448 314,438 C 310,428 298,432 296,442 C 294,450 296,454 300,456 Z
+  "/>
+
+  <!-- Left spear flourish -->
+  <path fill="url(#goldRim)" d="M 58,248 L 28,260 L 58,272 L 72,260 Z"/>
+
+  <!-- Beaded outer rim -->
+  <g fill="url(#goldBright)" opacity="0.9">
+    <circle cx="118" cy="118" r="3.5"/><circle cx="98" cy="168" r="3.5"/><circle cx="82" cy="228" r="3.5"/>
+    <circle cx="82" cy="292" r="3.5"/><circle cx="98" cy="352" r="3.5"/><circle cx="118" cy="402" r="3.5"/>
+    <circle cx="200" cy="448" r="3.5"/><circle cx="268" cy="430" r="3.5"/>
+  </g>
+
+  <!-- Filigree scrolls -->
+  <g stroke="url(#goldRim)" stroke-width="2.5" fill="none" stroke-linecap="round">
+    <path d="M 168,148 C 148,168 142,198 152,228"/>
+    <path d="M 168,372 C 148,352 142,322 152,292"/>
+    <path d="M 198,168 C 218,188 224,218 214,248"/>
+    <path d="M 198,352 C 218,332 224,302 214,272"/>
+    <path d="M 132,260 C 152,240 178,240 198,260"/>
+    <path d="M 132,260 C 152,280 178,280 198,260"/>
+  </g>
+
+  <!-- Centre medallion -->
+  <ellipse cx="178" cy="260" rx="52" ry="58" fill="#080808" stroke="url(#goldFace)" stroke-width="4"/>
+  <ellipse cx="178" cy="260" rx="38" ry="42" fill="none" stroke="url(#goldRim)" stroke-width="2"/>
+  <!-- Fleur accents -->
+  <path fill="url(#goldRim)" d="M 178,210 L 184,224 L 198,224 L 186,234 L 192,248 L 178,238 L 164,248 L 170,234 L 158,224 L 172,224 Z" opacity="0.85"/>
+  <path fill="url(#goldRim)" d="M 178,310 L 184,296 L 198,296 L 186,286 L 192,272 L 178,282 L 164,272 L 170,286 L 158,296 L 172,296 Z" opacity="0.85"/>
+
+  <!-- Inner capital C -->
+  <path fill="url(#goldBright)" d="
+    M 198,228 C 178,224 162,238 162,260 C 162,282 178,296 198,292
+    L 194,276 C 184,278 176,272 176,260 C 176,248 184,242 194,244 Z
+  "/>
+
+  <!-- Inner rim highlight -->
+  <path fill="none" stroke="url(#goldBright)" stroke-width="3" opacity="0.5" d="
+    M 276,100 C 192,88 118,148 108,260 C 98,372 168,444 276,424
+  "/>
+
+  <!-- Surge path (invisible, used by overlay) -->
+  <path id="surgePath" fill="none" stroke="none" d="
+    M 292,58 C 188,38 72,98 58,260 C 44,422 158,492 292,468
+  "/>
+</svg>
