@@ -15,7 +15,7 @@
 
   document.body.classList.add("entry-active");
 
-  const isCoarseTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
 
   const hudSpinAnims = [];
 
@@ -327,7 +327,7 @@
   };
 
   window.addEventListener("keydown", onKeyDown);
-  if (isCoarseTouch) {
+  if (isPhoneEntry) {
     entry.addEventListener("pointerdown", onPointerDown);
   }
 })();

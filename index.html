@@ -10,13 +10,35 @@
       var saved = localStorage.getItem("cc-theme");
       document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
 
-      var isCoarseTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-      if (isCoarseTouch) document.documentElement.classList.add("is-coarse-touch");
+      /* Phone only — if a fine pointer (mouse/trackpad) exists, treat as desktop */
+      var isPhoneEntry =
+        !window.matchMedia("(pointer: fine)").matches &&
+        window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      if (isPhoneEntry) document.documentElement.classList.add("is-phone-entry");
+
+      document.documentElement.classList.add("entry-fonts-loading");
+      var revealEntryFonts = function () {
+        document.documentElement.classList.remove("entry-fonts-loading");
+      };
+      window.setTimeout(revealEntryFonts, 2000);
+      if (document.fonts && document.fonts.load) {
+        document.fonts.load('400 1em "Archivo Black"').then(revealEntryFonts).catch(revealEntryFonts);
+      } else {
+        revealEntryFonts();
+      }
     })();
   </script>
+  <style>
+    html.entry-fonts-loading .entry-c-outline,
+    html.entry-fonts-loading .entry-c-fill,
+    html.entry-fonts-loading .entry-prompt-key {
+      visibility: hidden;
+    }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Orbitron:wght@500;700;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=block" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Orbitron:wght@500;700;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/entry.css" />
 </head>

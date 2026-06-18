@@ -488,16 +488,14 @@ body.entry-active {
   display: flex;
 }
 
-/* Phones only — tablets/laptops with a mouse keep Press C */
-@media (hover: none) and (pointer: coarse) {
-  .entry-prompt-label--desktop,
-  .entry-prompt-key {
-    display: none !important;
-  }
+/* Phone only — class set in head when no fine pointer exists */
+html.is-phone-entry .entry-prompt-label--desktop,
+html.is-phone-entry .entry-prompt-key {
+  display: none !important;
+}
 
-  .entry-prompt-label--touch {
-    display: block;
-  }
+html.is-phone-entry .entry-prompt-label--touch {
+  display: block;
 }
 
 .entry-prompt-label {

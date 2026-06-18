@@ -1191,10 +1191,10 @@
 
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
-  const isCoarseTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
 
   /* Desktop + touch laptops: Lenis. Phones: native momentum scroll. */
-  if (!prefersReduced && window.Lenis && !isCoarseTouch) {
+  if (!prefersReduced && window.Lenis && !isPhoneEntry) {
     lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1242,7 +1242,7 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        scrub: isCoarseTouch ? 0.65 : 0.5,
+        scrub: isPhoneEntry ? 0.65 : 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
