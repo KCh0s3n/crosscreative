@@ -58,23 +58,26 @@
 
   const entryCore = entry.querySelector(".entry-core");
   const promptCycle = document.getElementById("entryPromptCycle");
+  const isDesktopEntry = !isPhoneEntry;
 
-  if (!isPhoneEntry && promptCycle) {
+  if (isDesktopEntry && promptCycle) {
     const messages = [
-      "Press C",
+      "Press C key",
       "Enter database",
-      "Tap on missing C to enter database",
+      "Press on the missing C to enter database",
     ];
     let cycleIndex = 0;
 
-    window.setInterval(() => {
+    const cyclePrompt = () => {
       promptCycle.classList.add("is-fading");
       window.setTimeout(() => {
         cycleIndex = (cycleIndex + 1) % messages.length;
         promptCycle.textContent = messages[cycleIndex];
         promptCycle.classList.remove("is-fading");
-      }, 350);
-    }, 2800);
+      }, 400);
+    };
+
+    window.setInterval(cyclePrompt, 3200);
   }
 
   const sparksEl = entry.querySelector(".entry-sparks");
