@@ -15,20 +15,11 @@
 
   document.body.classList.add("entry-active");
 
-  const isTouch =
-    document.documentElement.classList.contains("is-touch") ||
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-    navigator.maxTouchPoints > 0;
-
-  if (isTouch) {
-    entry.classList.add("entry--lite");
-  }
+  const isCoarseTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
   const hudSpinAnims = [];
 
-  const attachMobileHudSpin = () => {
-    if (!isTouch) return;
-
+  const attachHudSpin = () => {
     const rings = [
       { sel: ".entry-hud-ring--outer", dur: "12s", from: "0 500 500", to: "360 500 500" },
       { sel: ".entry-hud-ring--mid", dur: "16s", from: "360 500 500", to: "0 500 500" },
@@ -63,7 +54,7 @@
     });
   };
 
-  attachMobileHudSpin();
+  attachHudSpin();
 
   const sparksEl = entry.querySelector(".entry-sparks");
   const steamEl = entry.querySelector(".entry-steam");
@@ -289,9 +280,9 @@
 
   const runSurge = () => {
     entry.classList.add("is-surging");
-    if (isTouch) setHudSpinSpeed(true);
+    setHudSpinSpeed(true);
     playSurgeSequence();
-    spawnSparks(isTouch ? 14 : 28);
+    spawnSparks(28);
     vibrate([20, 35, 25, 50, 20]);
 
     schedule(() => {
@@ -305,7 +296,7 @@
     playLockSequence();
     vibrate([70, 35, 100, 30, 50]);
 
-    schedule(() => spawnSteam(isTouch ? 5 : 10), 400);
+    schedule(() => spawnSteam(10), 400);
     schedule(runSurge, lockMs);
   };
 
@@ -336,5 +327,7 @@
   };
 
   window.addEventListener("keydown", onKeyDown);
-  entry.addEventListener("pointerdown", onPointerDown);
+  if (isCoarseTouch) {
+    entry.addEventListener("pointerdown", onPointerDown);
+  }
 })();

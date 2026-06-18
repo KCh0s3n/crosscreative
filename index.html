@@ -10,11 +10,8 @@
       var saved = localStorage.getItem("cc-theme");
       document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
 
-      var isTouch =
-        window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-        "ontouchstart" in window ||
-        (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
-      if (isTouch) document.documentElement.classList.add("is-touch");
+      var isCoarseTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      if (isCoarseTouch) document.documentElement.classList.add("is-coarse-touch");
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />

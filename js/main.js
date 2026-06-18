@@ -1191,12 +1191,10 @@
 
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
-  const isTouch =
-    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
-    navigator.maxTouchPoints > 0;
+  const isCoarseTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-  /* Desktop: Lenis smooth scroll (unchanged from ~8pm). Mobile: native scroll. */
-  if (!prefersReduced && window.Lenis && !isTouch) {
+  /* Desktop + touch laptops: Lenis. Phones: native momentum scroll. */
+  if (!prefersReduced && window.Lenis && !isCoarseTouch) {
     lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1244,7 +1242,7 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: isCoarseTouch ? 0.65 : 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -1280,6 +1278,14 @@
         window.setTimeout(() => ScrollTrigger.refresh(), 250);
       });
     } else {
+      window.addEventListener(
+        "scroll",
+        () => {
+          onHeaderScroll();
+          ScrollTrigger.update();
+        },
+        { passive: true }
+      );
       ScrollTrigger.refresh();
       window.addEventListener("orientationchange", () => {
         window.setTimeout(() => ScrollTrigger.refresh(), 250);

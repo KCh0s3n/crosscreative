@@ -1329,7 +1329,13 @@ button {
 
   /* Mobile only — side rail, slower step scroll, no stray track line */
   .how-work-scroll {
-    height: 380vh;
+    height: 400vh;
+  }
+
+  .how-work-pin {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   .how-work-stage {
@@ -1373,7 +1379,8 @@ button {
     margin-bottom: 0;
     overflow: hidden;
     pointer-events: none;
-    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.55s;
+    will-change: opacity;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.5s;
   }
 
   .how-step.is-active {

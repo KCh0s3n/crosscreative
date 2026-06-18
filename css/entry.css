@@ -28,42 +28,7 @@ body.entry-active {
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  contain: layout style paint;
   transform: translateZ(0);
-}
-
-/* Lighter entry on touch — fewer GPU-heavy filters and idle loops */
-.entry-screen.entry--lite .entry-board-panels rect,
-.entry-screen.entry--lite .entry-chip-shadow,
-.entry-screen.entry--lite .entry-chip-underplate,
-.entry-screen.entry--lite .entry-chip-plate,
-.entry-screen.entry--lite .entry-chip-inner,
-.entry-screen.entry--lite .entry-core {
-  filter: none !important;
-}
-
-.entry-screen.entry--lite .entry-traces--shadow path {
-  display: none;
-}
-
-.entry-screen.entry--lite .entry-c-outline {
-  animation: none;
-  opacity: 0.5;
-}
-
-.entry-screen.entry--lite::before,
-.entry-screen.entry--lite::after {
-  opacity: 0.22;
-}
-
-.entry-screen.entry--lite .entry-panel-lines path,
-.entry-screen.entry--lite .entry-chip-detail path,
-.entry-screen.entry--lite .entry-chip-detail circle {
-  opacity: 0.45;
-}
-
-.entry-screen.entry--lite .entry-hud-overlay {
-  opacity: 0.55;
 }
 
 .entry-screen::before {
@@ -523,7 +488,7 @@ body.entry-active {
   display: flex;
 }
 
-/* Touch devices: show tap prompt immediately — no desktop flash */
+/* Phones only — tablets/laptops with a mouse keep Press C */
 @media (hover: none) and (pointer: coarse) {
   .entry-prompt-label--desktop,
   .entry-prompt-key {
@@ -533,15 +498,6 @@ body.entry-active {
   .entry-prompt-label--touch {
     display: block;
   }
-}
-
-html.is-touch .entry-prompt-label--desktop,
-html.is-touch .entry-prompt-key {
-  display: none !important;
-}
-
-html.is-touch .entry-prompt-label--touch {
-  display: block;
 }
 
 .entry-prompt-label {
@@ -624,25 +580,6 @@ html.is-touch .entry-prompt-label--touch {
   stroke: var(--accent);
   opacity: 0.72;
   filter: drop-shadow(0 0 8px var(--accent-glow));
-  animation: entry-hud-rotate 5s linear infinite;
-  transform-origin: 500px 500px;
-}
-
-.entry-screen.is-surging .entry-hud-ring--mid,
-.entry-screen.is-lit .entry-hud-ring--mid {
-  animation-duration: 7s;
-  animation-direction: reverse;
-}
-
-.entry-screen.is-surging .entry-hud-ring--inner,
-.entry-screen.is-lit .entry-hud-ring--inner {
-  animation-duration: 4s;
-}
-
-/* Mobile uses SVG spin (see entry.js) — avoid fighting CSS animation */
-html.is-touch .entry-screen.is-surging .entry-hud-ring,
-html.is-touch .entry-screen.is-lit .entry-hud-ring {
-  animation: none;
 }
 
 .entry-screen.is-surging .entry-hud-arc,
