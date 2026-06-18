@@ -1084,7 +1084,7 @@
 
     if (progressFill && total > 1) {
       const fillPct = ((index + Math.max(local, 0.08)) / (total - 1)) * 100;
-      progressFill.style.height = `${Math.min(100, fillPct)}%`;
+      progressFill.style.transform = `scaleY(${Math.min(1, fillPct / 100)})`;
     }
 
     if (index === activeProcessIndex) return;
@@ -1183,7 +1183,9 @@
 
   const tickScene = (now) => {
     sceneTime = now * 0.001;
-    updatePetals(sceneTime);
+    if (!document.body.classList.contains("entry-active")) {
+      updatePetals(sceneTime);
+    }
     requestAnimationFrame(tickScene);
   };
   requestAnimationFrame(tickScene);
@@ -1223,6 +1225,10 @@
   if (hasMotion) {
     gsap.registerPlugin(ScrollTrigger);
 
+    if (isTouch) {
+      ScrollTrigger.normalizeScroll(true);
+    }
+
     reveals.forEach((el) => {
       gsap.to(el, {
         opacity: 1,
@@ -1246,8 +1252,10 @@
         end: "bottom bottom",
         pin: pinPanel,
         pinSpacing: true,
+        pinType: isTouch ? "fixed" : "transform",
         anticipatePin: 1,
-        scrub: 0.5,
+        fastScrollEnd: isTouch,
+        scrub: isTouch ? 1 : 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -1293,7 +1301,7 @@
     if (steps.length) steps[0]?.classList.add("is-active");
     if (progressItems.length) progressItems[0]?.classList.add("is-active");
     if (heroLines.length) heroLines[0]?.classList.add("is-active");
-    if (progressFill) progressFill.style.height = "0%";
+    if (progressFill) progressFill.style.transform = "scaleY(0)";
   }
 
   /* Progress rail — click or keyboard to jump steps */

@@ -719,6 +719,8 @@ button {
   top: 0;
   height: 100vh;
   overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .how-work-stage {
@@ -750,9 +752,11 @@ button {
   left: 8px;
   top: 8px;
   width: 1px;
-  height: 0;
+  height: calc(100% - 16px);
   background: linear-gradient(180deg, var(--accent), transparent);
-  transform-origin: top;
+  transform: scaleY(0);
+  transform-origin: top center;
+  will-change: transform;
 }
 
 .how-progress-list {
@@ -1327,27 +1331,57 @@ button {
     align-items: stretch;
   }
 
-  /* Keep scrollytelling pin + fade on mobile — same scroll distance as desktop */
+  /* Mobile scrollytelling — horizontal dots, no side rail, longer scroll */
+  .how-work-scroll {
+    height: 320vh;
+  }
+
   .how-work-stage {
-    grid-template-columns: minmax(76px, 100px) 1fr;
-    gap: 14px;
-    padding: calc(var(--header-h) + 12px) 0 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 18px;
+    padding: calc(var(--header-h) + 16px) 0 20px;
     align-items: stretch;
   }
 
   .how-progress {
-    padding-left: 18px;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .how-progress::before,
+  .how-progress-fill {
+    display: none;
   }
 
   .how-progress-list {
-    gap: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
   }
 
   .how-progress-item {
-    font-size: 0.62rem;
-    letter-spacing: 0.06em;
-    gap: 8px;
+    font-size: 0;
+    letter-spacing: 0;
+    gap: 0;
     cursor: pointer;
+    transform: none !important;
+  }
+
+  .how-progress-item::before {
+    position: static;
+    left: auto;
+    width: 7px;
+    height: 7px;
+    transform: none;
+  }
+
+  .how-progress-item.is-active::before {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 4px var(--accent-soft);
   }
 
   .how-step-panel {
@@ -1363,17 +1397,19 @@ button {
     align-content: start;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
+    transform: none;
     margin-bottom: 0;
     overflow: hidden;
     pointer-events: none;
+    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.55s;
   }
 
   .how-step.is-active {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: none;
     pointer-events: auto;
+    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
   }
 
   .step-visual {

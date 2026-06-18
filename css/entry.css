@@ -28,6 +28,48 @@ body.entry-active {
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  contain: layout style paint;
+  transform: translateZ(0);
+}
+
+/* Lighter entry on touch — fewer GPU-heavy filters and idle loops */
+.entry-screen.entry--lite .entry-board-panels rect,
+.entry-screen.entry--lite .entry-chip-shadow,
+.entry-screen.entry--lite .entry-chip-underplate,
+.entry-screen.entry--lite .entry-chip-plate,
+.entry-screen.entry--lite .entry-chip-inner,
+.entry-screen.entry--lite .entry-core {
+  filter: none !important;
+}
+
+.entry-screen.entry--lite .entry-traces--shadow path {
+  display: none;
+}
+
+.entry-screen.entry--lite .entry-hud-ring,
+.entry-screen.entry--lite .entry-hud-ring--mid,
+.entry-screen.entry--lite .entry-hud-ring--inner {
+  animation: none !important;
+}
+
+.entry-screen.entry--lite .entry-c-outline {
+  animation: none;
+  opacity: 0.5;
+}
+
+.entry-screen.entry--lite::before,
+.entry-screen.entry--lite::after {
+  opacity: 0.22;
+}
+
+.entry-screen.entry--lite .entry-panel-lines path,
+.entry-screen.entry--lite .entry-chip-detail path,
+.entry-screen.entry--lite .entry-chip-detail circle {
+  opacity: 0.45;
+}
+
+.entry-screen.entry--lite .entry-hud-overlay {
+  opacity: 0.55;
 }
 
 .entry-screen::before {

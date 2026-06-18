@@ -15,6 +15,15 @@
 
   document.body.classList.add("entry-active");
 
+  const isTouch =
+    document.documentElement.classList.contains("is-touch") ||
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+    navigator.maxTouchPoints > 0;
+
+  if (isTouch) {
+    entry.classList.add("entry--lite");
+  }
+
   const sparksEl = entry.querySelector(".entry-sparks");
   const steamEl = entry.querySelector(".entry-steam");
   let bonded = false;
@@ -240,7 +249,7 @@
   const runSurge = () => {
     entry.classList.add("is-surging");
     playSurgeSequence();
-    spawnSparks(28);
+    spawnSparks(isTouch ? 14 : 28);
     vibrate([20, 35, 25, 50, 20]);
 
     schedule(() => {
@@ -254,7 +263,7 @@
     playLockSequence();
     vibrate([70, 35, 100, 30, 50]);
 
-    schedule(() => spawnSteam(10), 400);
+    schedule(() => spawnSteam(isTouch ? 5 : 10), 400);
     schedule(runSurge, lockMs);
   };
 
