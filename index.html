@@ -32,9 +32,8 @@
     })();
   </script>
   <style>
-    html.entry-fonts-loading .entry-c-outline,
     html.entry-fonts-loading .entry-c-fill,
-    html.entry-fonts-loading .entry-prompt-key {
+    html.entry-fonts-loading .entry-prompt-key--desktop {
       visibility: hidden;
     }
   </style>
@@ -263,9 +262,9 @@
     </div>
 
     <p class="entry-prompt" id="entry-prompt">
-      <span class="entry-prompt-label entry-prompt-label--desktop">Press C to access database</span>
-      <span class="entry-prompt-label entry-prompt-label--touch">Tap anywhere to enter</span>
-      <span class="entry-prompt-key" aria-hidden="true"><kbd>C</kbd></span>
+      <span class="entry-prompt-label entry-prompt-label--desktop" id="entryPromptCycle" aria-live="polite">Press C</span>
+      <span class="entry-prompt-label entry-prompt-label--mobile">Press the missing C to enter database</span>
+      <span class="entry-prompt-key entry-prompt-key--desktop"><kbd>C</kbd></span>
     </p>
   </div>
 

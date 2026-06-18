@@ -23,7 +23,6 @@ body.entry-active {
   background: #010203;
   color-scheme: dark;
   pointer-events: auto;
-  cursor: pointer;
   touch-action: manipulation;
   -webkit-user-select: none;
   user-select: none;
@@ -248,6 +247,7 @@ body.entry-active {
   width: var(--c-size);
   height: var(--c-size);
   transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 
 .entry-power-bloom {
@@ -290,21 +290,15 @@ body.entry-active {
 }
 
 .entry-c-outline {
+  opacity: 0.62;
+  stroke: color-mix(in srgb, var(--muted) 72%, #2e333c);
+  stroke-width: 2.5px;
+  animation: entry-outline-pulse 3s ease-in-out infinite;
+}
+
+.entry-socket-bg--well {
   opacity: 0.5;
-  animation: entry-outline-pulse 2.6s ease-in-out infinite;
-}
-
-/* Phone: keep the missing C artifact clearly visible before tap */
-html.is-phone-entry .entry-c-outline {
-  opacity: 0.82;
-  stroke: color-mix(in srgb, var(--accent) 48%, var(--muted));
-  stroke-width: 3px;
-  animation: entry-outline-pulse-mobile 2.8s ease-in-out infinite;
-}
-
-html.is-phone-entry .entry-socket-bg--well {
-  opacity: 0.58;
-  stroke: color-mix(in srgb, var(--accent) 22%, var(--border));
+  stroke: color-mix(in srgb, var(--muted) 40%, var(--border));
 }
 
 .entry-c-insert {
@@ -493,22 +487,43 @@ html.is-phone-entry .entry-socket-bg--well {
   transition: opacity 0.3s ease;
 }
 
-.entry-prompt-label--touch {
+.entry-prompt-label--mobile {
   display: none;
 }
 
-.entry-prompt-key {
+.entry-prompt-key--desktop {
   display: flex;
 }
 
-/* Phone only — class set in head when no fine pointer exists */
-html.is-phone-entry .entry-prompt-label--desktop,
-html.is-phone-entry .entry-prompt-key {
+/* Desktop: cycling prompt + C key */
+html:not(.is-phone-entry) .entry-prompt-label--mobile {
   display: none !important;
 }
 
-html.is-phone-entry .entry-prompt-label--touch {
+html:not(.is-phone-entry) .entry-prompt-label--desktop {
   display: block;
+  min-height: 1.2em;
+  animation: entry-prompt-blink 2.4s ease-in-out infinite;
+}
+
+html:not(.is-phone-entry) .entry-prompt-key--desktop {
+  display: flex;
+}
+
+/* Mobile: single prompt, no key icon */
+html.is-phone-entry .entry-prompt-label--desktop,
+html.is-phone-entry .entry-prompt-key--desktop {
+  display: none !important;
+}
+
+html.is-phone-entry .entry-prompt-label--mobile {
+  display: block;
+  animation: entry-prompt-blink 2.4s ease-in-out infinite;
+}
+
+.entry-prompt-label.is-fading {
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 .entry-prompt-label {
@@ -797,20 +812,20 @@ html.is-phone-entry .entry-prompt-label--touch {
 @keyframes entry-outline-pulse {
   0%,
   100% {
-    opacity: 0.3;
+    opacity: 0.48;
   }
   50% {
-    opacity: 0.56;
+    opacity: 0.72;
   }
 }
 
-@keyframes entry-outline-pulse-mobile {
+@keyframes entry-prompt-blink {
   0%,
   100% {
-    opacity: 0.68;
+    opacity: 0.45;
   }
   50% {
-    opacity: 0.92;
+    opacity: 1;
   }
 }
 

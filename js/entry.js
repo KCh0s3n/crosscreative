@@ -56,6 +56,27 @@
 
   attachHudSpin();
 
+  const entryCore = entry.querySelector(".entry-core");
+  const promptCycle = document.getElementById("entryPromptCycle");
+
+  if (!isPhoneEntry && promptCycle) {
+    const messages = [
+      "Press C",
+      "Enter database",
+      "Tap on missing C to enter database",
+    ];
+    let cycleIndex = 0;
+
+    window.setInterval(() => {
+      promptCycle.classList.add("is-fading");
+      window.setTimeout(() => {
+        cycleIndex = (cycleIndex + 1) % messages.length;
+        promptCycle.textContent = messages[cycleIndex];
+        promptCycle.classList.remove("is-fading");
+      }, 350);
+    }, 2800);
+  }
+
   const sparksEl = entry.querySelector(".entry-sparks");
   const steamEl = entry.querySelector(".entry-steam");
   let bonded = false;
@@ -327,7 +348,8 @@
   };
 
   window.addEventListener("keydown", onKeyDown);
-  if (isPhoneEntry) {
-    entry.addEventListener("pointerdown", onPointerDown);
+
+  if (entryCore) {
+    entryCore.addEventListener("pointerdown", onPointerDown);
   }
 })();
