@@ -1108,12 +1108,6 @@
     const total = steps.length;
     const target = Math.max(0, Math.min(total - 1, index));
 
-    if (isPhoneEntry && !processST) {
-      activeProcessIndex = -1;
-      updateProcessStep(target, total > 1 ? target / (total - 1) : 0);
-      return;
-    }
-
     if (processST) {
       const targetProgress = total > 1 ? target / (total - 1) : 0;
       const scrollTarget = processST.start + (processST.end - processST.start) * targetProgress;
@@ -1203,28 +1197,6 @@
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
 
-  const initMobileReveals = () => {
-    reveals.forEach((el) => {
-      el.style.transition = "opacity 0.65s ease, transform 0.65s ease";
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (!entry.isIntersecting) return;
-          el.style.opacity = "1";
-          el.style.transform = "none";
-          observer.disconnect();
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
-      );
-      observer.observe(el);
-    });
-  };
-
-  const initMobileProcess = () => {
-    if (steps.length) updateProcessStep(0, 0);
-    if (heroLines.length) updateHeroLine(0);
-    if (progressFill) progressFill.style.height = "0%";
-  };
-
   /* Desktop + touch laptops: Lenis. Phones: native momentum scroll. */
   if (!prefersReduced && window.Lenis && !isPhoneEntry) {
     lenis = new Lenis({
@@ -1252,19 +1224,14 @@
 
   const initScrollMotion = () => {
     if (!hasMotion) {
-      if (!prefersReduced) {
-        initMobileReveals();
-        initMobileProcess();
-      } else {
-        reveals.forEach((el) => {
-          el.style.opacity = "1";
-          el.style.transform = "none";
-        });
-        if (steps.length) steps[0]?.classList.add("is-active");
-        if (progressItems.length) progressItems[0]?.classList.add("is-active");
-        if (heroLines.length) heroLines[0]?.classList.add("is-active");
-        if (progressFill) progressFill.style.height = "0%";
-      }
+      reveals.forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+      if (steps.length) steps[0]?.classList.add("is-active");
+      if (progressItems.length) progressItems[0]?.classList.add("is-active");
+      if (heroLines.length) heroLines[0]?.classList.add("is-active");
+      if (progressFill) progressFill.style.height = "0%";
       return;
     }
 
@@ -1279,7 +1246,7 @@
         scrollTrigger: {
           trigger: el,
           start: "top 86%",
-          toggleActions: isPhoneEntry ? "play none none none" : "play none none reverse",
+          toggleActions: "play none none reverse",
         },
       });
     });
@@ -1291,7 +1258,7 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        scrub: isPhoneEntry ? 0.85 : 0.5,
+        scrub: isPhoneEntry ? 0.65 : 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -1322,12 +1289,24 @@
       });
 
       ScrollTrigger.addEventListener("refresh", () => lenis.resize());
+      ScrollTrigger.refresh();
+      window.addEventListener("orientationchange", () => {
+        window.setTimeout(() => ScrollTrigger.refresh(), 250);
+      });
+    } else {
+      window.addEventListener(
+        "scroll",
+        () => {
+          onHeaderScroll();
+          ScrollTrigger.update();
+        },
+        { passive: true }
+      );
+      ScrollTrigger.refresh();
+      window.addEventListener("orientationchange", () => {
+        window.setTimeout(() => ScrollTrigger.refresh(), 250);
+      });
     }
-
-    ScrollTrigger.refresh();
-    window.addEventListener("orientationchange", () => {
-      window.setTimeout(() => ScrollTrigger.refresh(), 250);
-    });
   };
 
   if (document.body.classList.contains("entry-active")) {

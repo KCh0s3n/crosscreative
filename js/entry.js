@@ -15,7 +15,6 @@
 
   document.body.classList.add("entry-active");
 
-  const isLightEntry = document.documentElement.classList.contains("is-light-entry");
   const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
 
   const hudSpinAnims = [];
@@ -93,10 +92,10 @@
   let bonded = false;
   let timers = [];
 
-  const lockMs = isLightEntry ? 920 : 850;
-  const surgeMs = isLightEntry ? 1350 : 1200;
-  const holdMs = isLightEntry ? 950 : 900;
-  const openMs = isLightEntry ? 1100 : 1000;
+  const lockMs = 850;
+  const surgeMs = 1200;
+  const holdMs = 900;
+  const openMs = 1000;
 
   let audioCtx = null;
   let masterGain = null;
@@ -235,14 +234,6 @@
   };
 
   const playLockSequence = () => {
-    if (isLightEntry) {
-      safeAudio((ctx) => {
-        const t = ctx.currentTime;
-        playDeepHit(ctx, t, 40, 0.55);
-        playMetalSlam(ctx, t + 0.12, 0.5);
-      });
-      return;
-    }
     safeAudio((ctx) => {
       const t = ctx.currentTime;
       playServo(ctx, t);
@@ -257,14 +248,6 @@
   };
 
   const playSurgeSequence = () => {
-    if (isLightEntry) {
-      safeAudio((ctx) => {
-        const t = ctx.currentTime;
-        playDeepHit(ctx, t, 48, 0.5);
-        playElectricalPressure(ctx, t + 0.1, 0.45);
-      });
-      return;
-    }
     safeAudio((ctx) => {
       const t = ctx.currentTime;
       playHudSequence(ctx, t);
@@ -293,7 +276,7 @@
   const spawnSparks = (count) => {
     if (!sparksEl) return;
     sparksEl.innerHTML = "";
-    const total = isLightEntry ? Math.min(count, 8) : count;
+    const total = isPhoneEntry ? Math.min(count, 12) : count;
     for (let i = 0; i < total; i++) {
       const spark = document.createElement("span");
       spark.className = "entry-spark";
@@ -327,15 +310,6 @@
     schedule(finish, openMs + 150);
   };
 
-  const runLightBond = () => {
-    vibrate([12, 8, 12]);
-    entry.classList.add("is-light-bond");
-    schedule(() => {
-      entry.classList.add("is-opening");
-      schedule(finish, 500);
-    }, 700);
-  };
-
   const runSurge = () => {
     startHudSpin();
     entry.classList.add("is-surging");
@@ -351,10 +325,6 @@
   };
 
   const lockC = () => {
-    if (isLightEntry) {
-      runLightBond();
-      return;
-    }
     entry.classList.add("is-locking");
     playLockSequence();
     vibrate([70, 35, 100, 30, 50]);
@@ -368,13 +338,11 @@
     if (bonded) return;
     bonded = true;
 
-    if (!isLightEntry) {
-      safeAudio((ctx) => {
-        if (ctx.state === "suspended") {
-          ctx.resume();
-        }
-      });
-    }
+    safeAudio((ctx) => {
+      if (ctx.state === "suspended") {
+        ctx.resume();
+      }
+    });
 
     lockC();
   };
@@ -397,15 +365,12 @@
     entryCore.addEventListener("pointerdown", onPointerDown);
   }
 
-  /* Warm audio + pre-build HUD before bond — reduces first-frame lag on mobile */
+  attachHudSpin();
+
   const warmEntry = () => {
-    if (isLightEntry) return;
     safeAudio(() => {});
   };
 
-  if (!isLightEntry) {
-    entry.addEventListener("pointerdown", warmEntry, { passive: true, capture: true });
-    entry.addEventListener("touchstart", warmEntry, { passive: true, capture: true });
-    attachHudSpin();
-  }
+  entry.addEventListener("pointerdown", warmEntry, { passive: true, capture: true });
+  entry.addEventListener("touchstart", warmEntry, { passive: true, capture: true });
 })();

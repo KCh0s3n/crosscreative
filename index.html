@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<!-- cc-build: sticky-steps-light-entry-v9 -->
+<!-- cc-build: restore-steps-entry-v10 -->
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -11,16 +11,13 @@
       var saved = localStorage.getItem("cc-theme");
       document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
 
-      /* Layout: narrow screens. Entry: touch-primary OR narrow (Safari iOS, Android, tablets). */
-      var isNarrowLayout = window.matchMedia("(max-width: 980px)").matches;
-      var isTouchPrimary = window.matchMedia("(hover: none), (pointer: coarse)").matches;
-      var isLightEntry = isNarrowLayout || isTouchPrimary;
-      if (isNarrowLayout) document.documentElement.classList.add("is-phone-entry");
-      if (isLightEntry) document.documentElement.classList.add("is-light-entry");
-      document.documentElement.dataset.entryDesktop = isLightEntry ? "0" : "1";
+      /* Narrow screens use tap prompt; wide screens use keyboard prompt. */
+      var isPhoneEntry = window.matchMedia("(max-width: 980px)").matches;
+      if (isPhoneEntry) document.documentElement.classList.add("is-phone-entry");
+      document.documentElement.dataset.entryDesktop = isPhoneEntry ? "0" : "1";
 
-      /* Wide desktop with mouse — wait for Archivo Black to avoid C shape flash */
-      if (!isNarrowLayout) {
+      /* Desktop only — wait for Archivo Black to avoid C shape flash */
+      if (!isPhoneEntry) {
         document.documentElement.classList.add("entry-fonts-loading");
         var revealEntryFonts = function () {
           document.documentElement.classList.remove("entry-fonts-loading");
