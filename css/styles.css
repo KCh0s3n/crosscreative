@@ -546,34 +546,29 @@ button {
     var(--card-bg);
   box-shadow: var(--card-shadow);
   transition: background 0.45s var(--ease-out), border-color 0.45s, box-shadow 0.45s;
-  overflow: visible;
-  --corner-size: 70px;
-  --corner-bleed: 32px;
 }
 
 .hero-card::before,
 .hero-card::after {
   content: "";
   position: absolute;
-  width: var(--corner-size);
-  height: var(--corner-size);
+  width: 70px;
+  height: 70px;
   background: url("../images/royal-rose-corner.svg") center / contain no-repeat;
   opacity: 0.85;
   pointer-events: none;
 }
 
 .hero-card::before {
-  top: calc(-1 * var(--corner-bleed));
-  right: calc(-1 * var(--corner-bleed));
+  top: -32px;
+  right: -32px;
   transform: rotate(90deg);
-  transform-origin: top right;
 }
 
 .hero-card::after {
-  left: calc(-1 * var(--corner-bleed));
-  bottom: calc(-1 * var(--corner-bleed));
+  left: -32px;
+  bottom: -32px;
   transform: rotate(-90deg);
-  transform-origin: bottom left;
 }
 
 .hero-card-label {
@@ -586,10 +581,7 @@ button {
 
 .hero-stats {
   display: grid;
-  gap: 16px;
-  overflow: visible;
-  padding: 10px;
-  margin: -10px;
+  gap: 12px;
 }
 
 .stat {
@@ -601,35 +593,9 @@ button {
   padding: 14px 16px;
   border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
   border-radius: 4px 18px 4px 18px;
-  background: rgba(255, 255, 255, 0.018);
-  overflow: visible;
-  --corner-size: 40px;
-  --corner-bleed: 15px;
-}
-
-.stat::before,
-.stat::after {
-  content: "";
-  position: absolute;
-  width: var(--corner-size);
-  height: var(--corner-size);
-  background: url("../images/royal-rose-corner.svg") center / contain no-repeat;
-  opacity: 0.78;
-  pointer-events: none;
-}
-
-.stat::before {
-  top: calc(-1 * var(--corner-bleed));
-  right: calc(-1 * var(--corner-bleed));
-  transform: rotate(90deg);
-  transform-origin: top right;
-}
-
-.stat::after {
-  left: calc(-1 * var(--corner-bleed));
-  bottom: calc(-1 * var(--corner-bleed));
-  transform: rotate(-90deg);
-  transform-origin: bottom left;
+  background:
+    linear-gradient(90deg, rgba(224, 192, 128, 0.08), transparent 58%),
+    rgba(255, 255, 255, 0.018);
 }
 
 .stat strong {
@@ -1068,40 +1034,29 @@ button {
     inset 0 0 0 1px rgba(255, 255, 255, 0.035),
     0 18px 48px rgba(0, 0, 0, 0.22);
   transition: transform 0.35s var(--ease-out), border-color 0.35s, background 0.45s, box-shadow 0.35s;
-  overflow: visible;
-  --corner-size: 56px;
-  --corner-bleed: 26px;
 }
 
 .card::before,
 .card::after {
   content: "";
   position: absolute;
-  width: var(--corner-size);
-  height: var(--corner-size);
+  width: 56px;
+  height: 56px;
   background: url("../images/royal-rose-corner.svg") center / contain no-repeat;
   opacity: 0.8;
   pointer-events: none;
 }
 
 .card::before {
-  top: calc(-1 * var(--corner-bleed));
-  right: calc(-1 * var(--corner-bleed));
+  top: -26px;
+  right: -26px;
   transform: rotate(90deg);
-  transform-origin: top right;
 }
 
 .card::after {
-  left: calc(-1 * var(--corner-bleed));
-  bottom: calc(-1 * var(--corner-bleed));
+  left: -26px;
+  bottom: -26px;
   transform: rotate(-90deg);
-  transform-origin: bottom left;
-}
-
-.card,
-.hero-card,
-.contact-panel {
-  margin: 6px;
 }
 
 .card:hover {
@@ -1139,34 +1094,29 @@ button {
   gap: 32px;
   align-items: center;
   transition: background 0.45s, border-color 0.45s;
-  overflow: visible;
-  --corner-size: 84px;
-  --corner-bleed: 38px;
 }
 
 .contact-panel::before,
 .contact-panel::after {
   content: "";
   position: absolute;
-  width: var(--corner-size);
-  height: var(--corner-size);
+  width: 84px;
+  height: 84px;
   background: url("../images/royal-rose-corner.svg") center / contain no-repeat;
   opacity: 0.85;
   pointer-events: none;
 }
 
 .contact-panel::before {
-  top: calc(-1 * var(--corner-bleed));
-  right: calc(-1 * var(--corner-bleed));
+  top: -38px;
+  right: -38px;
   transform: rotate(90deg);
-  transform-origin: top right;
 }
 
 .contact-panel::after {
-  left: calc(-1 * var(--corner-bleed));
-  bottom: calc(-1 * var(--corner-bleed));
+  left: -38px;
+  bottom: -38px;
   transform: rotate(-90deg);
-  transform-origin: bottom left;
 }
 
 .contact-email-trigger {
@@ -1393,19 +1343,7 @@ button {
     min-width: 0;
   }
 
-  .card {
-    --corner-size: 48px;
-    --corner-bleed: 18px;
-  }
-
-  .hero-card {
-    --corner-size: 52px;
-    --corner-bleed: 20px;
-  }
-
   .contact-panel {
-    --corner-size: 64px;
-    --corner-bleed: 22px;
     padding: clamp(24px, 5vw, 32px) clamp(20px, 4.5vw, 28px);
     gap: 24px;
   }
