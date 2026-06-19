@@ -15,8 +15,6 @@
 
   document.body.classList.add("entry-active");
 
-  const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
-
   const hudSpinAnims = [];
 
   const attachHudSpin = () => {
