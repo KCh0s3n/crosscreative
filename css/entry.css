@@ -574,6 +574,8 @@ html.is-phone-entry .entry-prompt-label--mobile {
     width: 100%;
     max-width: 100%;
     --c-size: min(38vmin, 240px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   html.is-phone-entry .entry-prompt {
@@ -587,6 +589,57 @@ html.is-phone-entry .entry-prompt-label--mobile {
     max-width: 100%;
     line-height: 1.35;
     overflow-wrap: anywhere;
+  }
+
+  html.is-phone-entry .entry-screen.is-locking .entry-c-insert {
+    animation: entry-artifact-insert 0.92s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-locking .entry-flash {
+    animation: entry-impact-flash 0.92s ease-out forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-locking .entry-core {
+    animation: entry-impact-shake 0.78s ease-out;
+  }
+
+  html.is-phone-entry .entry-screen.is-surging .entry-traces--energy path {
+    animation: entry-trace-surge 1.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-surging .entry-scan-beam {
+    animation: entry-scan-beam 1s ease-out forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-surging .entry-power-bloom {
+    animation: entry-bloom-rise 1.35s ease-out forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-surging .entry-c-aura {
+    animation: entry-c-aura-surge 1.35s ease-out forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-surging .entry-c-fill {
+    animation: entry-c-power 1.35s ease-out forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-opening {
+    animation: entry-fade-out 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-opening .entry-core {
+    transition: opacity 0.85s ease, transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Drop-shadow filters stall mobile GPUs mid-sequence */
+  html.is-phone-entry .entry-screen.is-locking [class*="entry-hud"],
+  html.is-phone-entry .entry-screen.is-surging [class*="entry-hud"],
+  html.is-phone-entry .entry-screen.is-surging .entry-traces--energy path,
+  html.is-phone-entry .entry-screen.is-surging .entry-vias circle,
+  html.is-phone-entry .entry-screen.is-lit [class*="entry-hud"],
+  html.is-phone-entry .entry-screen.is-lit .entry-vias circle {
+    filter: none !important;
+    -webkit-filter: none !important;
   }
 }
 

@@ -1106,6 +1106,12 @@
     const total = steps.length;
     const target = Math.max(0, Math.min(total - 1, index));
 
+    if (isPhoneEntry) {
+      activeProcessIndex = -1;
+      updateProcessStep(target, total > 1 ? target / (total - 1) : 0);
+      return;
+    }
+
     if (processST) {
       const targetProgress = total > 1 ? target / (total - 1) : 0;
       const scrollTarget = processST.start + (processST.end - processST.start) * targetProgress;
@@ -1230,7 +1236,7 @@
         scrollTrigger: {
           trigger: el,
           start: "top 86%",
-          toggleActions: "play none none reverse",
+          toggleActions: isPhoneEntry ? "play none none none" : "play none none reverse",
         },
       });
     });
@@ -1238,25 +1244,30 @@
     if (scrollSection && steps.length) {
       const total = steps.length;
 
-      processST = ScrollTrigger.create({
-        trigger: scrollSection,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: isPhoneEntry ? 0.65 : 0.5,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const index = Math.min(total - 1, Math.floor(progress * total));
-          const local = (progress * total) - index;
+      if (isPhoneEntry) {
+        updateProcessStep(0, 0);
+        if (heroLines.length) updateHeroLine(0);
+      } else {
+        processST = ScrollTrigger.create({
+          trigger: scrollSection,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const index = Math.min(total - 1, Math.floor(progress * total));
+            const local = (progress * total) - index;
 
-          updateProcessStep(index, local);
+            updateProcessStep(index, local);
 
-          if (heroLines.length) {
-            const heroIndex = Math.min(heroLines.length - 1, Math.floor(progress * heroLines.length * 1.2));
-            updateHeroLine(heroIndex);
-          }
-        },
-      });
+            if (heroLines.length) {
+              const heroIndex = Math.min(heroLines.length - 1, Math.floor(progress * heroLines.length * 1.2));
+              updateHeroLine(heroIndex);
+            }
+          },
+        });
+      }
     }
 
     if (lenis) {
@@ -1321,7 +1332,7 @@
     .filter(Boolean);
 
   const setActiveNav = () => {
-    const y = window.scrollY + 120;
+    const y = getScrollY() + 120;
     let current = sections[0]?.id;
     sections.forEach((section) => {
       if (section.offsetTop <= y) current = section.id;

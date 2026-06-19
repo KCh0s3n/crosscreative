@@ -1314,7 +1314,6 @@ button {
   html {
     width: 100%;
     max-width: 100%;
-    overflow-x: clip;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -1322,15 +1321,20 @@ button {
   body {
     width: 100%;
     max-width: 100%;
-    overflow-x: clip;
-    touch-action: pan-y;
+    overflow-x: hidden;
+    touch-action: manipulation;
   }
 
   .container {
     width: 100%;
     max-width: 100%;
-    padding-inline: max(30px, env(safe-area-inset-left, 0px)) max(30px, env(safe-area-inset-right, 0px));
+    padding-inline: max(24px, env(safe-area-inset-left, 0px)) max(24px, env(safe-area-inset-right, 0px));
     box-sizing: border-box;
+  }
+
+  #contact .container {
+    padding-inline: max(42px, env(safe-area-inset-left, 0px)) max(42px, env(safe-area-inset-right, 0px));
+    padding-bottom: 20px;
   }
 
   .section {
@@ -1345,7 +1349,7 @@ button {
     overflow: visible;
   }
 
-  /* Keep exterior corner flourishes visible — room in container padding */
+  /* Exterior corner flourishes — stay inside viewport */
   .card,
   .hero-card,
   .contact-panel {
@@ -1355,56 +1359,62 @@ button {
 
   .contact-panel::before,
   .contact-panel::after {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
   }
 
   .contact-panel::before {
-    top: -24px;
-    right: -24px;
+    top: -6px;
+    right: -6px;
     transform: rotate(90deg);
+    transform-origin: top right;
   }
 
   .contact-panel::after {
-    left: -24px;
-    bottom: -24px;
+    left: -6px;
+    bottom: -6px;
     transform: rotate(-90deg);
+    transform-origin: bottom left;
   }
 
   .card::before,
   .card::after {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
   }
 
   .card::before {
-    top: -16px;
-    right: -16px;
+    top: -6px;
+    right: -6px;
     transform: rotate(90deg);
+    transform-origin: top right;
   }
 
   .card::after {
-    left: -16px;
-    bottom: -16px;
+    left: -6px;
+    bottom: -6px;
     transform: rotate(-90deg);
+    transform-origin: bottom left;
   }
 
   .hero-card::before,
   .hero-card::after {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
   }
 
   .hero-card::before {
-    top: -18px;
-    right: -18px;
+    top: -6px;
+    right: -6px;
     transform: rotate(90deg);
+    transform-origin: top right;
   }
 
   .hero-card::after {
-    left: -18px;
-    bottom: -18px;
+    left: -6px;
+    bottom: -6px;
     transform: rotate(-90deg);
+    transform-origin: bottom left;
   }
 
   .contact-panel {
@@ -1439,15 +1449,18 @@ button {
     align-items: stretch;
   }
 
-  /* Mobile only — side rail, slower step scroll, no stray track line */
+  /* Mobile: native scroll — no tall pin section (prevents iOS jump-back) */
   .how-work-scroll {
-    height: 400vh;
+    height: auto;
   }
 
   .how-work-pin {
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    position: relative;
+    height: auto;
+    min-height: 0;
+    transform: none;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
   }
 
   .how-work-stage {
@@ -1833,23 +1846,17 @@ button {
 
 @media (max-width: 600px) {
   .container {
-    padding-inline: max(26px, env(safe-area-inset-left, 0px)) max(26px, env(safe-area-inset-right, 0px));
+    padding-inline: max(22px, env(safe-area-inset-left, 0px)) max(22px, env(safe-area-inset-right, 0px));
+  }
+
+  #contact .container {
+    padding-inline: max(36px, env(safe-area-inset-left, 0px)) max(36px, env(safe-area-inset-right, 0px));
   }
 
   .contact-panel::before,
   .contact-panel::after {
-    width: 56px;
-    height: 56px;
-  }
-
-  .contact-panel::before {
-    top: -20px;
-    right: -20px;
-  }
-
-  .contact-panel::after {
-    left: -20px;
-    bottom: -20px;
+    width: 48px;
+    height: 48px;
   }
 
   .contact-panel {

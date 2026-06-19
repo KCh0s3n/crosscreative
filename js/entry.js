@@ -42,8 +42,19 @@
       anim.setAttribute("to", to);
       anim.setAttribute("dur", dur);
       anim.setAttribute("repeatCount", "indefinite");
+      anim.setAttribute("begin", "indefinite");
       wrap.appendChild(anim);
       hudSpinAnims.push({ anim, idle: dur });
+    });
+  };
+
+  const startHudSpin = () => {
+    hudSpinAnims.forEach(({ anim }) => {
+      try {
+        anim.beginElement();
+      } catch (_) {
+        /* SVG SMIL unavailable — rings stay static */
+      }
     });
   };
 
@@ -81,10 +92,10 @@
   let bonded = false;
   let timers = [];
 
-  const lockMs = 850;
-  const surgeMs = 1200;
-  const holdMs = 900;
-  const openMs = 1000;
+  const lockMs = isPhoneEntry ? 920 : 850;
+  const surgeMs = isPhoneEntry ? 1350 : 1200;
+  const holdMs = isPhoneEntry ? 950 : 900;
+  const openMs = isPhoneEntry ? 1100 : 1000;
 
   let audioCtx = null;
   let masterGain = null;
@@ -299,7 +310,7 @@
   };
 
   const runSurge = () => {
-    attachHudSpin();
+    startHudSpin();
     entry.classList.add("is-surging");
     setHudSpinSpeed(true);
     playSurgeSequence();
@@ -352,4 +363,9 @@
   if (entryCore) {
     entryCore.addEventListener("pointerdown", onPointerDown);
   }
+
+  /* Pre-build HUD spin wrappers while idle — avoids mid-sequence DOM jank on mobile */
+  requestAnimationFrame(() => {
+    attachHudSpin();
+  });
 })();
