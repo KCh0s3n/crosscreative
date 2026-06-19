@@ -1193,7 +1193,7 @@
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
 
-  /* Lenis on desktop wheel; phones use native touch — same ScrollTrigger logic on both */
+  /* Desktop + touch laptops: Lenis. Phones: native momentum scroll. */
   if (!prefersReduced && window.Lenis && !isPhoneEntry) {
     lenis = new Lenis({
       duration: 1.1,
@@ -1218,19 +1218,7 @@
     }
   }
 
-  const initScrollMotion = () => {
-    if (!hasMotion) {
-      reveals.forEach((el) => {
-        el.style.opacity = "1";
-        el.style.transform = "none";
-      });
-      if (steps.length) steps[0]?.classList.add("is-active");
-      if (progressItems.length) progressItems[0]?.classList.add("is-active");
-      if (heroLines.length) heroLines[0]?.classList.add("is-active");
-      if (progressFill) progressFill.style.height = "0%";
-      return;
-    }
-
+  if (hasMotion) {
     gsap.registerPlugin(ScrollTrigger);
 
     reveals.forEach((el) => {
@@ -1254,7 +1242,7 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: isPhoneEntry ? 0.65 : 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -1303,15 +1291,20 @@
         window.setTimeout(() => ScrollTrigger.refresh(), 250);
       });
     }
-  };
-
-  if (document.body.classList.contains("entry-active")) {
-    window.addEventListener("cc:entered", () => {
-      window.setTimeout(initScrollMotion, 50);
-    }, { once: true });
   } else {
-    initScrollMotion();
+    reveals.forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+    if (steps.length) steps[0]?.classList.add("is-active");
+    if (progressItems.length) progressItems[0]?.classList.add("is-active");
+    if (heroLines.length) heroLines[0]?.classList.add("is-active");
+    if (progressFill) progressFill.style.height = "0%";
   }
+
+  window.addEventListener("cc:entered", () => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  }, { once: true });
 
   /* Progress rail — click or keyboard to jump steps */
   progressItems.forEach((item, index) => {
