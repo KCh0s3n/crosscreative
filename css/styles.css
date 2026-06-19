@@ -448,6 +448,11 @@ button {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 64px;
   align-items: end;
+  overflow: visible;
+}
+
+.hero .container {
+  overflow: visible;
 }
 
 .eyebrow {
@@ -596,19 +601,6 @@ button {
   background:
     linear-gradient(90deg, rgba(224, 192, 128, 0.08), transparent 58%),
     rgba(255, 255, 255, 0.018);
-}
-
-.stat::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -5px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50% 50% 50% 0;
-  border: 1px solid var(--accent);
-  background: radial-gradient(circle at 35% 35%, #ffe8f0 0 16%, rgba(112, 28, 42, 0.78) 17% 100%);
-  transform: translateY(-50%) rotate(-45deg);
 }
 
 .stat strong {
@@ -1075,6 +1067,12 @@ button {
   bottom: calc(-1 * var(--corner-bleed));
   transform: rotate(-90deg);
   transform-origin: bottom left;
+}
+
+.card,
+.hero-card,
+.contact-panel {
+  margin: 6px;
 }
 
 .card:hover {

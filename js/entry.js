@@ -327,49 +327,13 @@
   };
 
   const runMobileBond = () => {
-    vibrate([30, 20, 30]);
-
-    const insert = entry.querySelector(".entry-c-insert");
-    let opened = false;
-    const goOpen = () => {
-      if (opened) return;
-      opened = true;
-      entry.classList.remove("is-locking", "is-surging");
-      entry.classList.add("is-lit");
-      schedule(openSite, holdMs);
-    };
-
-    const beginSurge = () => {
-      startHudSpin();
-      setHudSpinSpeed(true);
-      entry.classList.remove("is-locking");
-      entry.classList.add("is-surging");
-      requestAnimationFrame(() => {
-        playSurgeSequence();
-        spawnSparks(10);
-      });
-      schedule(goOpen, surgeMs);
-    };
-
-    const onLockEnd = (event) => {
-      if (event.animationName !== "entry-artifact-insert") return;
-      insert?.removeEventListener("animationend", onLockEnd);
-      beginSurge();
-    };
-
-    entry.classList.add("is-locking");
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        playLockSequence();
-      });
-    });
-
-    if (insert) {
-      insert.addEventListener("animationend", onLockEnd);
-    } else {
-      schedule(beginSurge, lockMs);
-    }
-    schedule(goOpen, lockMs + surgeMs + holdMs + 400);
+    vibrate([20, 15, 20]);
+    entry.classList.add("is-mobile-sequence");
+    schedule(() => {
+      entry.classList.remove("is-mobile-sequence");
+      entry.classList.add("is-opening");
+      schedule(finish, openMs + 150);
+    }, 3600);
   };
 
   const runSurge = () => {

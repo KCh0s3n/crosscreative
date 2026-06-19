@@ -643,9 +643,102 @@ html.is-phone-entry .entry-prompt-label--mobile {
   html.is-phone-entry .entry-screen.is-surging .entry-traces--energy path,
   html.is-phone-entry .entry-screen.is-surging .entry-vias circle,
   html.is-phone-entry .entry-screen.is-lit [class*="entry-hud"],
-  html.is-phone-entry .entry-screen.is-lit .entry-vias circle {
+  html.is-phone-entry .entry-screen.is-lit .entry-vias circle,
+  html.is-phone-entry .entry-screen.is-mobile-sequence [class*="entry-hud"],
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-traces--energy path,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-vias circle {
     filter: none !important;
     -webkit-filter: none !important;
+  }
+
+  /* One continuous CSS timeline — no JS phase toggles, no audio, no sparks */
+  html.is-phone-entry .entry-hud-ring-spin {
+    animation: entry-hud-rotate 10s linear infinite;
+    animation-play-state: paused;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-ring-spin {
+    animation-play-state: running;
+    animation-delay: 0.75s;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-prompt {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-insert {
+    animation: entry-artifact-insert 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-flash {
+    animation: entry-impact-flash 0.9s ease-out 0s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-core {
+    animation: entry-impact-shake 0.75s ease-out 0s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-outline {
+    opacity: 0.13;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-traces--body path {
+    stroke: color-mix(in srgb, var(--accent) 52%, var(--accent-deep));
+    opacity: 1;
+    transition: stroke 0.4s ease 0.75s, opacity 0.4s ease 0.75s;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-traces--energy path {
+    opacity: 1;
+    stroke-dasharray: 22 520;
+    animation: entry-trace-surge 1.15s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-scan-beam {
+    animation: entry-scan-beam 0.9s ease-out 0.75s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-vias circle,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-panel-lines path,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-ring,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-arc,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-ticks line,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-brackets path,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-chip-pins line,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-chip-detail path,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-chip-plate,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-chip-underplate,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-chip-inner,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-missing-socket {
+    stroke: var(--accent);
+    opacity: 1;
+    transition: stroke 0.45s ease 0.75s, opacity 0.45s ease 0.75s, fill 0.45s ease 0.75s;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-power-bloom {
+    animation: entry-bloom-rise 1.15s ease-out 0.75s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-aura {
+    animation: entry-c-aura-surge 1.15s ease-out 0.75s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-fill {
+    animation: entry-c-power 1.15s ease-out 0.75s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-arc {
+    animation: entry-hud-sweep 1s ease-out 0.8s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-readouts text,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-panel,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-panel span,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-panel strong,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-microcopy {
+    opacity: 1;
+    transition: opacity 0.5s ease 0.85s, color 0.5s ease 0.85s;
   }
 }
 
