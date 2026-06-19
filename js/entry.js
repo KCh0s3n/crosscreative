@@ -276,7 +276,7 @@
   const spawnSparks = (count) => {
     if (!sparksEl) return;
     sparksEl.innerHTML = "";
-    const total = isPhoneEntry ? Math.min(count, 12) : count;
+    const total = count;
     for (let i = 0; i < total; i++) {
       const spark = document.createElement("span");
       spark.className = "entry-spark";

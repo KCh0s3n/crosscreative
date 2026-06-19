@@ -1393,9 +1393,9 @@ button {
     align-items: stretch;
   }
 
-  /* Tall scroll track + sticky pin — same scrub behaviour as desktop */
+  /* Process section — same pinned scroll on all devices; layout-only tweaks below */
   .how-work-scroll {
-    height: 400vh;
+    height: 240vh;
   }
 
   .how-work-pin {
@@ -1408,7 +1408,6 @@ button {
     grid-template-columns: minmax(72px, 100px) 1fr;
     gap: 12px;
     padding: calc(var(--header-h) + 16px) 0 20px;
-    align-items: center;
   }
 
   .how-progress {
@@ -1416,7 +1415,6 @@ button {
     height: fit-content;
     padding-left: 18px;
     min-width: 0;
-    max-width: none;
   }
 
   .how-progress-list {
@@ -1431,36 +1429,17 @@ button {
   }
 
   .how-step-panel {
-    min-height: min(62vh, 460px);
-    overflow: hidden;
+    min-height: min(72vh, 520px);
   }
 
   .how-step {
-    position: absolute;
-    inset: 0;
     grid-template-columns: 1fr;
-    gap: 16px;
-    align-content: start;
-    opacity: 0;
-    visibility: hidden;
-    transform: none;
-    margin-bottom: 0;
-    overflow: hidden;
-    pointer-events: none;
-    will-change: opacity;
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.5s;
-  }
-
-  .how-step.is-active {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto;
-    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
+    gap: 20px;
+    align-content: center;
   }
 
   .step-visual {
-    display: none;
+    min-height: 240px;
   }
 
   .step-title {

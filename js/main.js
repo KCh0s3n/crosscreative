@@ -1066,7 +1066,6 @@
   const reveals = document.querySelectorAll(".reveal");
   const floatPetals = document.querySelectorAll("[data-blossom-float]");
   let sceneTime = 0;
-  let petalFrame = 0;
   let lenis;
   let processST = null;
   let activeProcessIndex = -1;
@@ -1185,10 +1184,7 @@
   const tickScene = (now) => {
     sceneTime = now * 0.001;
     if (!document.body.classList.contains("entry-active")) {
-      petalFrame += 1;
-      if (!isPhoneEntry || petalFrame % 2 === 0) {
-        updatePetals(sceneTime);
-      }
+      updatePetals(sceneTime);
     }
     requestAnimationFrame(tickScene);
   };
@@ -1197,7 +1193,7 @@
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
 
-  /* Desktop + touch laptops: Lenis. Phones: native momentum scroll. */
+  /* Lenis on desktop wheel; phones use native touch — same ScrollTrigger logic on both */
   if (!prefersReduced && window.Lenis && !isPhoneEntry) {
     lenis = new Lenis({
       duration: 1.1,
@@ -1258,7 +1254,7 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        scrub: isPhoneEntry ? 0.65 : 0.5,
+        scrub: 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
