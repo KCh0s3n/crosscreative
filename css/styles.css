@@ -1311,6 +1311,118 @@ button {
 }
 
 @media (max-width: 980px) {
+  html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    touch-action: pan-y;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: max(30px, env(safe-area-inset-left, 0px)) max(30px, env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+  }
+
+  .section {
+    padding: 80px 0;
+    overflow: visible;
+  }
+
+  .site-header .container,
+  main .container,
+  .site-footer .container {
+    min-width: 0;
+    overflow: visible;
+  }
+
+  /* Keep exterior corner flourishes visible — room in container padding */
+  .card,
+  .hero-card,
+  .contact-panel {
+    overflow: visible;
+    margin-block: 10px;
+  }
+
+  .contact-panel::before,
+  .contact-panel::after {
+    width: 64px;
+    height: 64px;
+  }
+
+  .contact-panel::before {
+    top: -24px;
+    right: -24px;
+    transform: rotate(90deg);
+  }
+
+  .contact-panel::after {
+    left: -24px;
+    bottom: -24px;
+    transform: rotate(-90deg);
+  }
+
+  .card::before,
+  .card::after {
+    width: 48px;
+    height: 48px;
+  }
+
+  .card::before {
+    top: -16px;
+    right: -16px;
+    transform: rotate(90deg);
+  }
+
+  .card::after {
+    left: -16px;
+    bottom: -16px;
+    transform: rotate(-90deg);
+  }
+
+  .hero-card::before,
+  .hero-card::after {
+    width: 56px;
+    height: 56px;
+  }
+
+  .hero-card::before {
+    top: -18px;
+    right: -18px;
+    transform: rotate(90deg);
+  }
+
+  .hero-card::after {
+    left: -18px;
+    bottom: -18px;
+    transform: rotate(-90deg);
+  }
+
+  .contact-panel {
+    padding: 28px 22px;
+    gap: 24px;
+  }
+
+  .contact-email-trigger {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: clamp(0.78rem, 3.4vw, 0.88rem);
+    padding-inline: 16px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
   .hero-grid,
   .work-grid,
   .services-grid,
@@ -1339,20 +1451,27 @@ button {
   }
 
   .how-work-stage {
-    grid-template-columns: minmax(72px, 100px) 1fr;
-    gap: 12px;
+    grid-template-columns: minmax(58px, 76px) minmax(0, 1fr);
+    gap: 10px;
     padding: calc(var(--header-h) + 16px) 0 20px;
     align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .how-progress {
     align-self: start;
     height: fit-content;
-    padding-left: 18px;
+    padding-left: 14px;
+    min-width: 0;
+    max-width: 76px;
   }
 
-  .how-progress-list {
-    gap: 12px;
+  .how-step-panel,
+  .how-step {
+    min-width: 0;
   }
 
   .how-progress-item {
@@ -1360,6 +1479,10 @@ button {
     letter-spacing: 0.05em;
     gap: 8px;
     cursor: pointer;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .how-step-panel {
@@ -1454,6 +1577,29 @@ button {
   .header-actions {
     margin-left: auto;
     gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    min-width: 0;
+    flex-shrink: 1;
+    font-size: clamp(0.85rem, 3.5vw, 1.05rem);
+  }
+
+  .site-header,
+  main {
+    max-width: 100%;
+    overflow-x: visible;
+  }
+
+  .hero-copy h1 {
+    overflow-wrap: break-word;
+  }
+
+  .email-modal__panel {
+    width: min(100%, calc(100vw - 2rem));
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .language-select select {
@@ -1686,9 +1832,37 @@ button {
 }
 
 @media (max-width: 600px) {
+  .container {
+    padding-inline: max(26px, env(safe-area-inset-left, 0px)) max(26px, env(safe-area-inset-right, 0px));
+  }
+
+  .contact-panel::before,
+  .contact-panel::after {
+    width: 56px;
+    height: 56px;
+  }
+
+  .contact-panel::before {
+    top: -20px;
+    right: -20px;
+  }
+
+  .contact-panel::after {
+    left: -20px;
+    bottom: -20px;
+  }
+
+  .contact-panel {
+    padding: 24px 18px;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 7.5vw, 2.2rem);
+  }
+
   .ambient-player {
-    right: 14px;
-    bottom: 14px;
+    right: max(14px, env(safe-area-inset-right, 0px));
+    bottom: max(14px, env(safe-area-inset-bottom, 0px));
   }
   .ambient-player.is-expanded {
     padding: 6px 12px 6px 6px;
@@ -1698,8 +1872,13 @@ button {
   }
 
   .how-work-stage {
-    grid-template-columns: minmax(64px, 84px) 1fr;
-    gap: 10px;
+    grid-template-columns: minmax(52px, 68px) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .how-progress {
+    max-width: 68px;
+    padding-left: 10px;
   }
 
   .how-progress-item {
