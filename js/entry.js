@@ -327,10 +327,7 @@
   };
 
   const runMobileBond = () => {
-    startHudSpin();
-    setHudSpinSpeed(true);
-    playLockSequence();
-    vibrate([40, 30, 50]);
+    vibrate([30, 20, 30]);
 
     const insert = entry.querySelector(".entry-c-insert");
     let opened = false;
@@ -342,27 +339,35 @@
       schedule(openSite, holdMs);
     };
 
-    const onLockEnd = (event) => {
-      if (event.animationName !== "entry-artifact-insert") return;
-      insert?.removeEventListener("animationend", onLockEnd);
+    const beginSurge = () => {
+      startHudSpin();
+      setHudSpinSpeed(true);
       entry.classList.remove("is-locking");
       entry.classList.add("is-surging");
-      playSurgeSequence();
-      spawnSparks(12);
+      requestAnimationFrame(() => {
+        playSurgeSequence();
+        spawnSparks(10);
+      });
       schedule(goOpen, surgeMs);
     };
 
+    const onLockEnd = (event) => {
+      if (event.animationName !== "entry-artifact-insert") return;
+      insert?.removeEventListener("animationend", onLockEnd);
+      beginSurge();
+    };
+
     entry.classList.add("is-locking");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        playLockSequence();
+      });
+    });
+
     if (insert) {
       insert.addEventListener("animationend", onLockEnd);
     } else {
-      schedule(() => {
-        entry.classList.remove("is-locking");
-        entry.classList.add("is-surging");
-        playSurgeSequence();
-        spawnSparks(12);
-        schedule(goOpen, surgeMs);
-      }, lockMs);
+      schedule(beginSurge, lockMs);
     }
     schedule(goOpen, lockMs + surgeMs + holdMs + 400);
   };
@@ -426,8 +431,13 @@
     entryCore.addEventListener("pointerdown", onPointerDown);
   }
 
-  /* Pre-build HUD spin wrappers while idle — avoids mid-sequence DOM jank on mobile */
-  requestAnimationFrame(() => {
-    attachHudSpin();
-  });
+  /* Warm audio + pre-build HUD before bond — reduces first-frame lag on mobile */
+  const warmEntry = () => {
+    safeAudio(() => {});
+  };
+
+  entry.addEventListener("pointerdown", warmEntry, { passive: true, capture: true });
+  entry.addEventListener("touchstart", warmEntry, { passive: true, capture: true });
+
+  attachHudSpin();
 })();

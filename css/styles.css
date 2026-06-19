@@ -541,8 +541,9 @@ button {
     var(--card-bg);
   box-shadow: var(--card-shadow);
   transition: background 0.45s var(--ease-out), border-color 0.45s, box-shadow 0.45s;
+  overflow: visible;
   --corner-size: 70px;
-  --corner-gap: 8px;
+  --corner-bleed: 32px;
 }
 
 .hero-card::before,
@@ -557,15 +558,17 @@ button {
 }
 
 .hero-card::before {
-  top: var(--corner-gap);
-  right: var(--corner-gap);
+  top: calc(-1 * var(--corner-bleed));
+  right: calc(-1 * var(--corner-bleed));
   transform: rotate(90deg);
+  transform-origin: top right;
 }
 
 .hero-card::after {
-  left: var(--corner-gap);
-  bottom: var(--corner-gap);
+  left: calc(-1 * var(--corner-bleed));
+  bottom: calc(-1 * var(--corner-bleed));
   transform: rotate(-90deg);
+  transform-origin: bottom left;
 }
 
 .hero-card-label {
@@ -1044,8 +1047,9 @@ button {
     inset 0 0 0 1px rgba(255, 255, 255, 0.035),
     0 18px 48px rgba(0, 0, 0, 0.22);
   transition: transform 0.35s var(--ease-out), border-color 0.35s, background 0.45s, box-shadow 0.35s;
+  overflow: visible;
   --corner-size: 56px;
-  --corner-gap: 8px;
+  --corner-bleed: 26px;
 }
 
 .card::before,
@@ -1060,15 +1064,17 @@ button {
 }
 
 .card::before {
-  top: var(--corner-gap);
-  right: var(--corner-gap);
+  top: calc(-1 * var(--corner-bleed));
+  right: calc(-1 * var(--corner-bleed));
   transform: rotate(90deg);
+  transform-origin: top right;
 }
 
 .card::after {
-  left: var(--corner-gap);
-  bottom: var(--corner-gap);
+  left: calc(-1 * var(--corner-bleed));
+  bottom: calc(-1 * var(--corner-bleed));
   transform: rotate(-90deg);
+  transform-origin: bottom left;
 }
 
 .card:hover {
@@ -1106,8 +1112,9 @@ button {
   gap: 32px;
   align-items: center;
   transition: background 0.45s, border-color 0.45s;
+  overflow: visible;
   --corner-size: 84px;
-  --corner-gap: 10px;
+  --corner-bleed: 38px;
 }
 
 .contact-panel::before,
@@ -1122,15 +1129,17 @@ button {
 }
 
 .contact-panel::before {
-  top: var(--corner-gap);
-  right: var(--corner-gap);
+  top: calc(-1 * var(--corner-bleed));
+  right: calc(-1 * var(--corner-bleed));
   transform: rotate(90deg);
+  transform-origin: top right;
 }
 
 .contact-panel::after {
-  left: var(--corner-gap);
-  bottom: var(--corner-gap);
+  left: calc(-1 * var(--corner-bleed));
+  bottom: calc(-1 * var(--corner-bleed));
   transform: rotate(-90deg);
+  transform-origin: bottom left;
 }
 
 .contact-email-trigger {
@@ -1328,15 +1337,22 @@ button {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
-    touch-action: manipulation;
+    touch-action: pan-y;
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  main,
+  .section,
+  .work-grid,
+  .services-grid {
+    overflow: visible;
   }
 
   .container {
     width: 100%;
     max-width: 100%;
-    padding-inline: max(clamp(1rem, 4.5vw, 1.5rem), env(safe-area-inset-left, 0px)) max(clamp(1rem, 4.5vw, 1.5rem), env(safe-area-inset-right, 0px));
+    padding-inline: max(clamp(1.5rem, 6vw, 2rem), env(safe-area-inset-left, 0px)) max(clamp(1.5rem, 6vw, 2rem), env(safe-area-inset-right, 0px));
     box-sizing: border-box;
   }
 
@@ -1350,14 +1366,19 @@ button {
     min-width: 0;
   }
 
-  .card,
-  .hero-card,
-  .contact-panel {
-    --corner-size: clamp(36px, 11vw, 52px);
-    --corner-gap: clamp(6px, 1.8vw, 10px);
+  .card {
+    --corner-size: 48px;
+    --corner-bleed: 18px;
+  }
+
+  .hero-card {
+    --corner-size: 52px;
+    --corner-bleed: 20px;
   }
 
   .contact-panel {
+    --corner-size: 64px;
+    --corner-bleed: 22px;
     padding: clamp(24px, 5vw, 32px) clamp(20px, 4.5vw, 28px);
     gap: 24px;
   }
@@ -1550,7 +1571,7 @@ button {
   }
 
   .email-modal__panel {
-    width: min(100%, calc(100vw - 2rem));
+    width: min(100%, calc(100% - 2rem));
     max-width: 100%;
     box-sizing: border-box;
   }

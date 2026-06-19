@@ -1066,10 +1066,12 @@
   const reveals = document.querySelectorAll(".reveal");
   const floatPetals = document.querySelectorAll("[data-blossom-float]");
   let sceneTime = 0;
+  let petalFrame = 0;
   let lenis;
   let processST = null;
   let activeProcessIndex = -1;
   let activeHeroIndex = -1;
+  const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
 
   const updateHeroLine = (index) => {
     if (index === activeHeroIndex) return;
@@ -1189,7 +1191,10 @@
   const tickScene = (now) => {
     sceneTime = now * 0.001;
     if (!document.body.classList.contains("entry-active")) {
-      updatePetals(sceneTime);
+      petalFrame += 1;
+      if (!isPhoneEntry || petalFrame % 2 === 0) {
+        updatePetals(sceneTime);
+      }
     }
     requestAnimationFrame(tickScene);
   };
@@ -1197,7 +1202,28 @@
 
   /* Smooth scroll + motion */
   const hasMotion = !prefersReduced && window.Lenis && window.gsap && window.ScrollTrigger;
-  const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
+
+  const initMobileReveals = () => {
+    reveals.forEach((el) => {
+      el.style.transition = "opacity 0.65s ease, transform 0.65s ease";
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          el.style.opacity = "1";
+          el.style.transform = "none";
+          observer.disconnect();
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
+      );
+      observer.observe(el);
+    });
+  };
+
+  const initMobileProcess = () => {
+    if (steps.length) updateProcessStep(0, 0);
+    if (heroLines.length) updateHeroLine(0);
+    if (progressFill) progressFill.style.height = "0%";
+  };
 
   /* Desktop + touch laptops: Lenis. Phones: native momentum scroll. */
   if (!prefersReduced && window.Lenis && !isPhoneEntry) {
@@ -1224,7 +1250,7 @@
     }
   }
 
-  if (hasMotion) {
+  if (hasMotion && !isPhoneEntry) {
     gsap.registerPlugin(ScrollTrigger);
 
     reveals.forEach((el) => {
@@ -1236,7 +1262,7 @@
         scrollTrigger: {
           trigger: el,
           start: "top 86%",
-          toggleActions: isPhoneEntry ? "play none none none" : "play none none reverse",
+          toggleActions: "play none none reverse",
         },
       });
     });
@@ -1244,30 +1270,25 @@
     if (scrollSection && steps.length) {
       const total = steps.length;
 
-      if (isPhoneEntry) {
-        updateProcessStep(0, 0);
-        if (heroLines.length) updateHeroLine(0);
-      } else {
-        processST = ScrollTrigger.create({
-          trigger: scrollSection,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.5,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const index = Math.min(total - 1, Math.floor(progress * total));
-            const local = (progress * total) - index;
+      processST = ScrollTrigger.create({
+        trigger: scrollSection,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const index = Math.min(total - 1, Math.floor(progress * total));
+          const local = (progress * total) - index;
 
-            updateProcessStep(index, local);
+          updateProcessStep(index, local);
 
-            if (heroLines.length) {
-              const heroIndex = Math.min(heroLines.length - 1, Math.floor(progress * heroLines.length * 1.2));
-              updateHeroLine(heroIndex);
-            }
-          },
-        });
-      }
+          if (heroLines.length) {
+            const heroIndex = Math.min(heroLines.length - 1, Math.floor(progress * heroLines.length * 1.2));
+            updateHeroLine(heroIndex);
+          }
+        },
+      });
     }
 
     if (lenis) {
@@ -1288,20 +1309,10 @@
       window.addEventListener("orientationchange", () => {
         window.setTimeout(() => ScrollTrigger.refresh(), 250);
       });
-    } else {
-      window.addEventListener(
-        "scroll",
-        () => {
-          onHeaderScroll();
-          ScrollTrigger.update();
-        },
-        { passive: true }
-      );
-      ScrollTrigger.refresh();
-      window.addEventListener("orientationchange", () => {
-        window.setTimeout(() => ScrollTrigger.refresh(), 250);
-      });
     }
+  } else if (!prefersReduced && isPhoneEntry) {
+    initMobileReveals();
+    initMobileProcess();
   } else {
     reveals.forEach((el) => {
       el.style.opacity = "1";
