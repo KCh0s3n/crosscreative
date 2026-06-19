@@ -202,12 +202,23 @@ body.is-email-modal-open {
 }
 
 .site-header,
-main,
 .site-footer {
   position: relative;
   z-index: 1;
   max-width: 100%;
-  overflow-x: clip;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  overflow-x: visible;
+}
+
+.how-work,
+.how-work-scroll,
+.how-work-intro {
+  overflow: visible;
 }
 
 img {
@@ -1382,15 +1393,16 @@ button {
     align-items: stretch;
   }
 
-  /* Mobile: native scroll — no tall pin section (prevents iOS jump-back) */
+  /* Tall scroll track + sticky pin — all viewports (sticky needs no overflow clip on main) */
   .how-work-scroll {
-    height: auto;
+    height: 300vh;
   }
 
   .how-work-pin {
-    position: relative;
-    height: auto;
-    min-height: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
     transform: none;
     -webkit-backface-visibility: visible;
     backface-visibility: visible;
@@ -1532,10 +1544,8 @@ button {
     font-size: clamp(0.85rem, 3.5vw, 1.05rem);
   }
 
-  .site-header,
-  main {
+  .site-header {
     max-width: 100%;
-    overflow-x: clip;
   }
 
   .hero-copy h1 {

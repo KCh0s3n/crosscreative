@@ -571,6 +571,27 @@ html.is-phone-entry .entry-prompt-label--mobile {
   animation: entry-prompt-blink 2.4s ease-in-out infinite;
 }
 
+html.is-light-entry .entry-screen.is-light-bond .entry-prompt {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+html.is-light-entry .entry-screen.is-light-bond .entry-c-insert {
+  animation: entry-artifact-insert 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+html.is-light-entry .entry-screen.is-light-bond .entry-flash {
+  animation: entry-impact-flash 0.45s ease-out forwards;
+}
+
+html.is-light-entry .entry-screen.is-light-bond .entry-traces--energy,
+html.is-light-entry .entry-screen.is-light-bond .entry-scan-beam,
+html.is-light-entry .entry-screen.is-light-bond .entry-hud-readouts,
+html.is-light-entry .entry-screen.is-light-bond .entry-hud-panel {
+  opacity: 0 !important;
+  animation: none !important;
+}
+
 /* Touch + narrow entry — Safari, Chrome, any browser, any device size */
 html.is-light-entry .entry-screen {
   overflow: hidden;

@@ -327,14 +327,13 @@
     schedule(finish, openMs + 150);
   };
 
-  const runMobileBond = () => {
-    vibrate([20, 15, 20]);
-    entry.classList.add("is-mobile-sequence");
+  const runLightBond = () => {
+    vibrate([12, 8, 12]);
+    entry.classList.add("is-light-bond");
     schedule(() => {
-      entry.classList.remove("is-mobile-sequence");
       entry.classList.add("is-opening");
-      schedule(finish, 700);
-    }, 2800);
+      schedule(finish, 500);
+    }, 700);
   };
 
   const runSurge = () => {
@@ -353,7 +352,7 @@
 
   const lockC = () => {
     if (isLightEntry) {
-      runMobileBond();
+      runLightBond();
       return;
     }
     entry.classList.add("is-locking");

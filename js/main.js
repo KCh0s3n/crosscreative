@@ -1108,7 +1108,7 @@
     const total = steps.length;
     const target = Math.max(0, Math.min(total - 1, index));
 
-    if (isPhoneEntry) {
+    if (isPhoneEntry && !processST) {
       activeProcessIndex = -1;
       updateProcessStep(target, total > 1 ? target / (total - 1) : 0);
       return;
@@ -1250,7 +1250,24 @@
     }
   }
 
-  if (hasMotion && !isPhoneEntry) {
+  const initScrollMotion = () => {
+    if (!hasMotion) {
+      if (!prefersReduced) {
+        initMobileReveals();
+        initMobileProcess();
+      } else {
+        reveals.forEach((el) => {
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        });
+        if (steps.length) steps[0]?.classList.add("is-active");
+        if (progressItems.length) progressItems[0]?.classList.add("is-active");
+        if (heroLines.length) heroLines[0]?.classList.add("is-active");
+        if (progressFill) progressFill.style.height = "0%";
+      }
+      return;
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     reveals.forEach((el) => {
@@ -1262,7 +1279,7 @@
         scrollTrigger: {
           trigger: el,
           start: "top 86%",
-          toggleActions: "play none none reverse",
+          toggleActions: isPhoneEntry ? "play none none none" : "play none none reverse",
         },
       });
     });
@@ -1274,12 +1291,12 @@
         trigger: scrollSection,
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: isPhoneEntry ? 0.85 : 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
           const index = Math.min(total - 1, Math.floor(progress * total));
-          const local = (progress * total) - index;
+          const local = progress * total - index;
 
           updateProcessStep(index, local);
 
@@ -1305,23 +1322,20 @@
       });
 
       ScrollTrigger.addEventListener("refresh", () => lenis.resize());
-      ScrollTrigger.refresh();
-      window.addEventListener("orientationchange", () => {
-        window.setTimeout(() => ScrollTrigger.refresh(), 250);
-      });
     }
-  } else if (!prefersReduced && isPhoneEntry) {
-    initMobileReveals();
-    initMobileProcess();
-  } else {
-    reveals.forEach((el) => {
-      el.style.opacity = "1";
-      el.style.transform = "none";
+
+    ScrollTrigger.refresh();
+    window.addEventListener("orientationchange", () => {
+      window.setTimeout(() => ScrollTrigger.refresh(), 250);
     });
-    if (steps.length) steps[0]?.classList.add("is-active");
-    if (progressItems.length) progressItems[0]?.classList.add("is-active");
-    if (heroLines.length) heroLines[0]?.classList.add("is-active");
-    if (progressFill) progressFill.style.height = "0%";
+  };
+
+  if (document.body.classList.contains("entry-active")) {
+    window.addEventListener("cc:entered", () => {
+      window.setTimeout(initScrollMotion, 50);
+    }, { once: true });
+  } else {
+    initScrollMotion();
   }
 
   /* Progress rail — click or keyboard to jump steps */
