@@ -15,6 +15,7 @@
 
   document.body.classList.add("entry-active");
 
+  const isLightEntry = document.documentElement.classList.contains("is-light-entry");
   const isPhoneEntry = document.documentElement.classList.contains("is-phone-entry");
 
   const hudSpinAnims = [];
@@ -92,10 +93,10 @@
   let bonded = false;
   let timers = [];
 
-  const lockMs = isPhoneEntry ? 920 : 850;
-  const surgeMs = isPhoneEntry ? 1350 : 1200;
-  const holdMs = isPhoneEntry ? 950 : 900;
-  const openMs = isPhoneEntry ? 1100 : 1000;
+  const lockMs = isLightEntry ? 920 : 850;
+  const surgeMs = isLightEntry ? 1350 : 1200;
+  const holdMs = isLightEntry ? 950 : 900;
+  const openMs = isLightEntry ? 1100 : 1000;
 
   let audioCtx = null;
   let masterGain = null;
@@ -234,7 +235,7 @@
   };
 
   const playLockSequence = () => {
-    if (isPhoneEntry) {
+    if (isLightEntry) {
       safeAudio((ctx) => {
         const t = ctx.currentTime;
         playDeepHit(ctx, t, 40, 0.55);
@@ -256,7 +257,7 @@
   };
 
   const playSurgeSequence = () => {
-    if (isPhoneEntry) {
+    if (isLightEntry) {
       safeAudio((ctx) => {
         const t = ctx.currentTime;
         playDeepHit(ctx, t, 48, 0.5);
@@ -292,7 +293,7 @@
   const spawnSparks = (count) => {
     if (!sparksEl) return;
     sparksEl.innerHTML = "";
-    const total = isPhoneEntry ? Math.min(count, 8) : count;
+    const total = isLightEntry ? Math.min(count, 8) : count;
     for (let i = 0; i < total; i++) {
       const spark = document.createElement("span");
       spark.className = "entry-spark";
@@ -351,7 +352,7 @@
   };
 
   const lockC = () => {
-    if (isPhoneEntry) {
+    if (isLightEntry) {
       runMobileBond();
       return;
     }
@@ -368,7 +369,7 @@
     if (bonded) return;
     bonded = true;
 
-    if (!isPhoneEntry) {
+    if (!isLightEntry) {
       safeAudio((ctx) => {
         if (ctx.state === "suspended") {
           ctx.resume();
@@ -399,11 +400,11 @@
 
   /* Warm audio + pre-build HUD before bond — reduces first-frame lag on mobile */
   const warmEntry = () => {
-    if (isPhoneEntry) return;
+    if (isLightEntry) return;
     safeAudio(() => {});
   };
 
-  if (!isPhoneEntry) {
+  if (!isLightEntry) {
     entry.addEventListener("pointerdown", warmEntry, { passive: true, capture: true });
     entry.addEventListener("touchstart", warmEntry, { passive: true, capture: true });
     attachHudSpin();

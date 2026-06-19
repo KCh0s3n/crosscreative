@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<!-- cc-build: mobile-fit-entry-v7 -->
+<!-- cc-build: universal-fit-entry-v8 -->
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -11,13 +11,16 @@
       var saved = localStorage.getItem("cc-theme");
       document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
 
-      /* Phones only (narrow screen). PCs always desktop — touchscreen laptops included. */
-      var isPhoneEntry = window.matchMedia("(max-width: 980px)").matches;
-      if (isPhoneEntry) document.documentElement.classList.add("is-phone-entry");
-      document.documentElement.dataset.entryDesktop = isPhoneEntry ? "0" : "1";
+      /* Layout: narrow screens. Entry: touch-primary OR narrow (Safari iOS, Android, tablets). */
+      var isNarrowLayout = window.matchMedia("(max-width: 980px)").matches;
+      var isTouchPrimary = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+      var isLightEntry = isNarrowLayout || isTouchPrimary;
+      if (isNarrowLayout) document.documentElement.classList.add("is-phone-entry");
+      if (isLightEntry) document.documentElement.classList.add("is-light-entry");
+      document.documentElement.dataset.entryDesktop = isLightEntry ? "0" : "1";
 
-      /* Desktop only — wait for Archivo Black to avoid C shape flash */
-      if (!isPhoneEntry) {
+      /* Wide desktop with mouse — wait for Archivo Black to avoid C shape flash */
+      if (!isNarrowLayout) {
         document.documentElement.classList.add("entry-fonts-loading");
         var revealEntryFonts = function () {
           document.documentElement.classList.remove("entry-fonts-loading");
