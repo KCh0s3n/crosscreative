@@ -824,7 +824,7 @@
     en: {
       kicker: "Contact email",
       title: "Ready when you are",
-      copy: "Copy the email address, then send over your project details when you're ready.",
+      copy: "Feel free to contact me anytime for any enquiries or to discuss your project.",
       idle: "Tap the ninja to copy.",
       copied: "Copied. Paste it into your email app.",
       failed: "Copy failed. The email is shown above.",
