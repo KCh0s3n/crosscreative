@@ -234,6 +234,14 @@
   };
 
   const playLockSequence = () => {
+    if (isPhoneEntry) {
+      safeAudio((ctx) => {
+        const t = ctx.currentTime;
+        playDeepHit(ctx, t, 40, 0.55);
+        playMetalSlam(ctx, t + 0.12, 0.5);
+      });
+      return;
+    }
     safeAudio((ctx) => {
       const t = ctx.currentTime;
       playServo(ctx, t);
@@ -248,6 +256,14 @@
   };
 
   const playSurgeSequence = () => {
+    if (isPhoneEntry) {
+      safeAudio((ctx) => {
+        const t = ctx.currentTime;
+        playDeepHit(ctx, t, 48, 0.5);
+        playElectricalPressure(ctx, t + 0.1, 0.45);
+      });
+      return;
+    }
     safeAudio((ctx) => {
       const t = ctx.currentTime;
       playHudSequence(ctx, t);
@@ -276,7 +292,8 @@
   const spawnSparks = (count) => {
     if (!sparksEl) return;
     sparksEl.innerHTML = "";
-    for (let i = 0; i < count; i++) {
+    const total = isPhoneEntry ? Math.min(count, 8) : count;
+    for (let i = 0; i < total; i++) {
       const spark = document.createElement("span");
       spark.className = "entry-spark";
       const angle = Math.random() * Math.PI * 2;
@@ -309,6 +326,47 @@
     schedule(finish, openMs + 150);
   };
 
+  const runMobileBond = () => {
+    startHudSpin();
+    setHudSpinSpeed(true);
+    playLockSequence();
+    vibrate([40, 30, 50]);
+
+    const insert = entry.querySelector(".entry-c-insert");
+    let opened = false;
+    const goOpen = () => {
+      if (opened) return;
+      opened = true;
+      entry.classList.remove("is-locking", "is-surging");
+      entry.classList.add("is-lit");
+      schedule(openSite, holdMs);
+    };
+
+    const onLockEnd = (event) => {
+      if (event.animationName !== "entry-artifact-insert") return;
+      insert?.removeEventListener("animationend", onLockEnd);
+      entry.classList.remove("is-locking");
+      entry.classList.add("is-surging");
+      playSurgeSequence();
+      spawnSparks(12);
+      schedule(goOpen, surgeMs);
+    };
+
+    entry.classList.add("is-locking");
+    if (insert) {
+      insert.addEventListener("animationend", onLockEnd);
+    } else {
+      schedule(() => {
+        entry.classList.remove("is-locking");
+        entry.classList.add("is-surging");
+        playSurgeSequence();
+        spawnSparks(12);
+        schedule(goOpen, surgeMs);
+      }, lockMs);
+    }
+    schedule(goOpen, lockMs + surgeMs + holdMs + 400);
+  };
+
   const runSurge = () => {
     startHudSpin();
     entry.classList.add("is-surging");
@@ -324,6 +382,10 @@
   };
 
   const lockC = () => {
+    if (isPhoneEntry) {
+      runMobileBond();
+      return;
+    }
     entry.classList.add("is-locking");
     playLockSequence();
     vibrate([70, 35, 100, 30, 50]);

@@ -13,3 +13,6 @@ desktop.ini
 
 # Optional local preview file (not used on the live site)
 audio/voice_preview_*.mp3
+
+# Local Netlify folder
+.netlify
