@@ -332,8 +332,8 @@
     schedule(() => {
       entry.classList.remove("is-mobile-sequence");
       entry.classList.add("is-opening");
-      schedule(finish, openMs + 150);
-    }, 3600);
+      schedule(finish, 700);
+    }, 2800);
   };
 
   const runSurge = () => {
@@ -368,11 +368,13 @@
     if (bonded) return;
     bonded = true;
 
-    safeAudio((ctx) => {
-      if (ctx.state === "suspended") {
-        ctx.resume();
-      }
-    });
+    if (!isPhoneEntry) {
+      safeAudio((ctx) => {
+        if (ctx.state === "suspended") {
+          ctx.resume();
+        }
+      });
+    }
 
     lockC();
   };
@@ -397,11 +399,13 @@
 
   /* Warm audio + pre-build HUD before bond — reduces first-frame lag on mobile */
   const warmEntry = () => {
+    if (isPhoneEntry) return;
     safeAudio(() => {});
   };
 
-  entry.addEventListener("pointerdown", warmEntry, { passive: true, capture: true });
-  entry.addEventListener("touchstart", warmEntry, { passive: true, capture: true });
-
-  attachHudSpin();
+  if (!isPhoneEntry) {
+    entry.addEventListener("pointerdown", warmEntry, { passive: true, capture: true });
+    entry.addEventListener("touchstart", warmEntry, { passive: true, capture: true });
+    attachHudSpin();
+  }
 })();

@@ -1306,6 +1306,7 @@ button {
   html {
     width: 100%;
     max-width: 100%;
+    overflow-x: clip;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -1344,8 +1345,80 @@ button {
   }
 
   .contact-panel {
-    padding: clamp(24px, 5vw, 32px) clamp(20px, 4.5vw, 28px);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: clamp(24px, 5vw, 32px) clamp(16px, 4vw, 24px);
     gap: 24px;
+  }
+
+  .contact-panel::before,
+  .contact-panel::after {
+    width: 48px;
+    height: 48px;
+  }
+
+  .contact-panel::before {
+    top: -14px;
+    right: -14px;
+  }
+
+  .contact-panel::after {
+    left: -14px;
+    bottom: -14px;
+  }
+
+  .hero-card::before,
+  .hero-card::after {
+    width: 52px;
+    height: 52px;
+  }
+
+  .hero-card::before {
+    top: -16px;
+    right: -16px;
+  }
+
+  .hero-card::after {
+    left: -16px;
+    bottom: -16px;
+  }
+
+  .card::before,
+  .card::after {
+    width: 42px;
+    height: 42px;
+  }
+
+  .card::before {
+    top: -14px;
+    right: -14px;
+  }
+
+  .card::after {
+    left: -14px;
+    bottom: -14px;
+  }
+
+  .step-visual::before,
+  .step-visual::after {
+    width: 48px;
+    height: 48px;
+  }
+
+  .step-visual::before {
+    top: -16px;
+    right: -16px;
+  }
+
+  .step-visual::after {
+    left: -16px;
+    bottom: -16px;
+  }
+
+  #contact .container {
+    overflow-x: clip;
   }
 
   .contact-email-trigger {
@@ -1528,7 +1601,7 @@ button {
   .site-header,
   main {
     max-width: 100%;
-    overflow-x: visible;
+    overflow-x: clip;
   }
 
   .hero-copy h1 {

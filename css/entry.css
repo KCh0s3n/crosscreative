@@ -573,9 +573,21 @@ html.is-phone-entry .entry-prompt-label--mobile {
     overflow: hidden;
     width: 100%;
     max-width: 100%;
-    --c-size: min(38vmin, 240px);
+    --c-size: min(36vmin, 220px);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    contain: strict;
+  }
+
+  /* Mobile GPUs choke on SVG filters — strip them for the whole entry scene */
+  html.is-phone-entry .entry-screen .entry-board-panels rect,
+  html.is-phone-entry .entry-screen .entry-chip-underplate,
+  html.is-phone-entry .entry-screen .entry-chip-plate,
+  html.is-phone-entry .entry-screen [class*="entry-hud"],
+  html.is-phone-entry .entry-screen .entry-traces--energy path,
+  html.is-phone-entry .entry-screen .entry-vias circle {
+    filter: none !important;
+    -webkit-filter: none !important;
   }
 
   html.is-phone-entry .entry-prompt {
@@ -604,9 +616,12 @@ html.is-phone-entry .entry-prompt-label--mobile {
     will-change: transform;
   }
 
-  html.is-phone-entry .entry-screen.is-surging .entry-core,
+  html.is-phone-entry .entry-screen.is-surging .entry-core {
+    will-change: opacity;
+  }
+
   html.is-phone-entry .entry-screen.is-opening .entry-core {
-    will-change: opacity, transform;
+    will-change: opacity;
   }
 
   html.is-phone-entry .entry-screen.is-surging .entry-traces--energy path {
@@ -630,11 +645,14 @@ html.is-phone-entry .entry-prompt-label--mobile {
   }
 
   html.is-phone-entry .entry-screen.is-opening {
-    animation: entry-fade-out 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: entry-fade-out 0.65s ease forwards;
   }
 
   html.is-phone-entry .entry-screen.is-opening .entry-core {
-    transition: opacity 0.85s ease, transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.55s ease;
+    will-change: opacity;
   }
 
   /* Drop-shadow filters stall mobile GPUs mid-sequence */
@@ -653,13 +671,11 @@ html.is-phone-entry .entry-prompt-label--mobile {
 
   /* One continuous CSS timeline — no JS phase toggles, no audio, no sparks */
   html.is-phone-entry .entry-hud-ring-spin {
-    animation: entry-hud-rotate 10s linear infinite;
-    animation-play-state: paused;
+    animation: none;
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-ring-spin {
-    animation-play-state: running;
-    animation-delay: 0.75s;
+    animation: none;
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-prompt {
@@ -668,15 +684,15 @@ html.is-phone-entry .entry-prompt-label--mobile {
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-insert {
-    animation: entry-artifact-insert 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards;
+    animation: entry-artifact-insert 0.85s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards;
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-flash {
-    animation: entry-impact-flash 0.9s ease-out 0s forwards;
+    animation: entry-impact-flash 0.75s ease-out 0s forwards;
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-core {
-    animation: entry-impact-shake 0.75s ease-out 0s forwards;
+    animation: none;
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-outline {
@@ -725,7 +741,12 @@ html.is-phone-entry .entry-prompt-label--mobile {
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-fill {
-    animation: entry-c-power 1.15s ease-out 0.75s forwards;
+    animation: entry-c-power-mobile 1s ease-out 0.75s forwards;
+  }
+
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-power-bloom,
+  html.is-phone-entry .entry-screen.is-mobile-sequence .entry-c-aura {
+    will-change: opacity;
   }
 
   html.is-phone-entry .entry-screen.is-mobile-sequence .entry-hud-arc {
