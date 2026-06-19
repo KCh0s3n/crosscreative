@@ -586,7 +586,10 @@ button {
 
 .hero-stats {
   display: grid;
-  gap: 12px;
+  gap: 16px;
+  overflow: visible;
+  padding: 10px;
+  margin: -10px;
 }
 
 .stat {
@@ -598,9 +601,35 @@ button {
   padding: 14px 16px;
   border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--border));
   border-radius: 4px 18px 4px 18px;
-  background:
-    linear-gradient(90deg, rgba(224, 192, 128, 0.08), transparent 58%),
-    rgba(255, 255, 255, 0.018);
+  background: rgba(255, 255, 255, 0.018);
+  overflow: visible;
+  --corner-size: 40px;
+  --corner-bleed: 15px;
+}
+
+.stat::before,
+.stat::after {
+  content: "";
+  position: absolute;
+  width: var(--corner-size);
+  height: var(--corner-size);
+  background: url("../images/royal-rose-corner.svg") center / contain no-repeat;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.stat::before {
+  top: calc(-1 * var(--corner-bleed));
+  right: calc(-1 * var(--corner-bleed));
+  transform: rotate(90deg);
+  transform-origin: top right;
+}
+
+.stat::after {
+  left: calc(-1 * var(--corner-bleed));
+  bottom: calc(-1 * var(--corner-bleed));
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
 }
 
 .stat strong {
